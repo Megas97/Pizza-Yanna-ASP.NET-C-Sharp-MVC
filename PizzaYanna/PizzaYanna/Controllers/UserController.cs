@@ -450,7 +450,7 @@ namespace PizzaYanna.Controllers
 
             var fromEmail = new MailAddress("venomcarnage97@gmail.com", "Pizza Yanna");
             var toEmail = new MailAddress(emailID);
-            var fromEmailPassword = "97Sammy97!"; // Replace with actual password
+            var fromEmailPassword = ""; // Replace with actual password
 
             string subject = "";
             string body = "";

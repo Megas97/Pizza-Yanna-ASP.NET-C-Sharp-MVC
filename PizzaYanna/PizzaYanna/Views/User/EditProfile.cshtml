@@ -1,0 +1,79 @@
+﻿@model PizzaYanna.Models.UserEditModel
+
+@{
+    ViewBag.Title = "Edit Profile";
+}
+
+@section head
+{
+    <meta name="description" content="Change your personal details.">
+    <meta name="keywords" content="profile, edit, change, edit profile, change profile, personal, information, info, name, address, first name, last name, email, e-mail">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://www.pizza-yanna.somee.com/edit-profile">
+    <meta property="og:title" content="Edit Profile">
+    <meta property="og:image" content="http://www.pizza-yanna.somee.com/Design/Logo.png">
+    <meta property="og:description" content="Change your personal details.">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow" />
+    <meta name="distribution" content="global" />
+}
+
+<h2>Edit Profile</h2>
+
+<hr />
+<div class="container text-success" style="text-align: center;">
+    @ViewBag.Message&nbsp;
+</div>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control", @placeholder = ViewBag.FirstName, @pattern = "^[A-Za-zА-Яа-я]*$" } })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control", @placeholder = ViewBag.LastName, @pattern = "^[A-Za-zА-Яа-я]*$" } })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control", @placeholder = ViewBag.Address, @pattern = "^[A-Za-zА-Яа-я0-9]+[A-Za-z0-9., ]*$" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.EmailID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.EmailID, new { htmlAttributes = new { @class = "form-control", @placeholder = ViewBag.Email, @pattern = "^[A-Za-z0-9.-]*[@][A-Za-z.-]*[.][A-Za-z.-]+" } })
+                @Html.ValidationMessageFor(model => model.EmailID, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save Changes" class="btn btn-success" />
+                <input type="button" value="My Profile" class="btn btn-default" onclick="location.href='@Url.Action("ViewMyProfile", "User")';" />
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}

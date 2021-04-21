@@ -1,0 +1,124 @@
+﻿@{
+    ViewBag.Title = "Contacts";
+}
+
+@section head
+{
+    <meta name="description" content="Have a question? Feel free to get in touch with us via one of the given methods.">
+    <meta name="keywords" content="contact us, contacts, about us, telephone, email, e-mail, fax, address, location">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://www.pizza-yanna.somee.com/contacts">
+    <meta property="og:title" content="Contacts">
+    <meta property="og:image" content="http://www.pizza-yanna.somee.com/Design/Logo.png">
+    <meta property="og:description" content="Have a question? Feel free to get in touch with us via one of the given methods.">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow" />
+    <meta name="distribution" content="global" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+<h3>@ViewBag.Message</h3>
+
+<address itemscope itemtype="http://schema.org/PostalAddress">
+    <span>Pizza Yanna</span>
+    <br />
+    <span itemprop="location">Sofia, Bulgaria</span>
+    <br />
+    <abbr title="Phone">P:</abbr>
+    <span itemprop="telephone">+359-98052-6399</span>
+    <br /><br />
+    <strong itemprop="email">Support: </strong><a href="mailto:support@pizza-yanna.somee.com">support@pizza-yanna.somee.com</a>
+    <br />
+    <strong itemprop="email">Marketing: </strong><a href="mailto:marketing@pizza-yanna.somee.com">marketing@pizza-yanna.somee.com</a>
+</address>
+
+<div class="mapouter">
+    <style>
+        .mapouter {
+            position: relative;
+            text-align: right;
+            height: 376px;
+            width: 376px;
+        }
+
+        .gmap_canvas {
+            overflow: hidden;
+            background: none !important;
+            height: 376px;
+            width: 376px;
+        }
+    </style>
+
+    <div class="gmap_canvas">
+        <iframe width="376" height="376" id="gmap_canvas" src="https://maps.google.com/maps?q=new%20bulgarian%20university&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+    </div>
+</div>
+
+<div class="container" id="socialMediaContainer" style="text-align: center; font-size:30px;">
+    <h2 style="color: #ffffff; text-shadow: 2px 2px #000000;">Follow us on:</h2>
+    <a href="https://www.facebook.com/megas97" target="_blank" class="fa fa-facebook"></a>
+    <a href="https://twitter.com/Moni_Mihailov" target="_blank" class="fa fa-twitter"></a>
+    <a href="https://www.youtube.com/user/gtakros" target="_blank" class="fa fa-youtube"></a>
+    <a href="https://www.instagram.com/moni_mihailov/" target="_blank" class="fa fa-instagram"></a>
+    <a href="https://www.pinterest.com/monimihailov3/" target="_blank" class="fa fa-pinterest"></a>
+    <a href="skype:iron-man_21?chat" class="fa fa-skype"></a>
+    <a href="https://www.tumblr.com/blog/moni-mihailov" target="_blank" class="fa fa-tumblr"></a>
+</div>
+
+<style>
+    #socialMediaContainer a:hover, #socialMediaContainer a:visited, #socialMediaContainer a:link, #socialMediaContainer a:active {
+        text-decoration: none;
+        color: white;
+    }
+
+    .fa:hover {
+        opacity: 0.7;
+    }
+
+    .fa {
+        padding: 20px;
+        font-size: 30px;
+        width: 70px;
+        text-align: center;
+        text-decoration: none;
+        margin: 5px 2px;
+        border-radius: 50%;
+    }
+
+    .fa-facebook {
+        background: #3B5998;
+        color: white;
+    }
+
+    .fa-twitter {
+        background: #55ACEE;
+        color: white;
+    }
+
+    .fa-youtube {
+        background: #bb0000;
+        color: white;
+    }
+
+    .fa-instagram {
+        background: #125688;
+        color: white;
+    }
+
+    .fa-pinterest {
+        background: #cb2027;
+        color: white;
+    }
+
+    .fa-skype {
+        background: #00aff0;
+        color: white;
+    }
+
+    .fa-tumblr {
+        background: #2c4762;
+        color: white;
+    }
+</style>

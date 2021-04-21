@@ -1,0 +1,130 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-151311789-2"></script>-->
+        <!--<script>-->
+        <!--window.dataLayer = window.dataLayer || [];-->
+        <!--function gtag() { dataLayer.push(arguments); }-->
+        <!--gtag('js', new Date());-->
+        <!--gtag('config', 'UA-151311789-2');-->
+        <!--</script>-->
+        <!--<meta name="google-site-verification" content="1urNu-nK4j2-VwNV49O4QPz3wM58bGDnpg9ZKNS8HuI" />-->
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>@ViewBag.Title</title>
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        @RenderSection("head", false)
+        <link rel="image_src" href="../../Design/Logo.png">
+        <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+        <meta name="revisit-after" content="7 days" />
+        <meta http-equiv="expires" content="0" />
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta http-equiv="pragma" content="no-cache" />
+        <meta http-equiv="content-language" content="en-us" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+        <script>
+            function checkIfLinkCountFuncDefined() {
+                if (typeof setLinkCountValue == "function") {
+                    setLinkCountValue();
+                }
+            }
+        </script>
+    </head>
+    <body onload="checkIfLinkCountFuncDefined()">
+        <div class="navbar navbar-inverse navbar-fixed-top" id="hamburgerMenuWrapper" itemscope itemtype="http://schema.org/SiteNavigationElement">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Pizza Yanna", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Promotions", "Promotions", "Home")</li>
+                        <li>@Html.ActionLink("Pizzas", "ShowPizzas", "Home")</li>
+                        <li>@Html.ActionLink("Drinks", "ShowDrinks", "Home")</li>
+                        <li>@Html.ActionLink("Desserts", "ShowDesserts", "Home")</li>
+                        <li>@Html.ActionLink("My Profile", "ViewMyProfile", "User")</li>
+                        <li>@Html.ActionLink("About", "About", "Home")</li>
+                        <li>@Html.ActionLink("Contacts", "Contacts", "Home")</li>
+                        <li>@Html.ActionLink("Terms & Conditions", "TermsAndConditions", "Home")</li>
+                        @using PizzaYanna.Models;
+                        @using (DBEntities de = new DBEntities())
+                        {
+                            var user = de.Users.Where(a => a.EmailID == HttpContext.Current.User.Identity.Name).FirstOrDefault();
+                            if (user != null)
+                            {
+                                var userRoles = user.UsersRoles;
+                                foreach (var userRole in userRoles)
+                                {
+                                    if (userRole.Role.RoleName.Equals("Admin"))
+                                    {
+                                        if (userRole.UserID == user.UserID)
+                                        {
+                                            <li>@Html.ActionLink("Admin Panel", "AdminPanel", "Admin")</li>
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    </ul>
+                    @Html.Partial("_LoginPartial")
+                </div>
+            </div>
+        </div>
+        <div class="container body-content">
+            @using MvcSiteMapProvider.Web.Html
+            @{
+                if (!HttpContext.Current.Request.RequestContext.RouteData.Values["action"].ToString().Equals("Index"))
+                {
+                    @Html.MvcSiteMap().SiteMapPath();
+                }
+            }
+            @RenderBody()
+            <button id="scrollToTopBtn" type="button" class="btn btn-warning">&uarr;</button>
+            <hr />
+            <footer itemscope itemtype="http://schema.org/WPFooter">
+                <p>&copy; 2019-@DateTime.Now.Year - Pizza Yanna - Sofia, Bulgaria</p>
+            </footer>
+        </div>
+
+        <script>
+            var scrollToTopBtn = document.getElementById("scrollToTopBtn");
+            var rootElement = document.documentElement;
+
+            function handleScroll() {
+                var scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+                if ((rootElement.scrollTop / scrollTotal) > 0.10) {
+                    scrollToTopBtn.style.display = "block";
+                } else {
+                    scrollToTopBtn.style.display = "none";
+                }
+            }
+
+            function scrollToTop() {
+                rootElement.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            }
+
+            scrollToTopBtn.addEventListener("click", scrollToTop);
+            document.addEventListener("scroll", handleScroll);
+        </script>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

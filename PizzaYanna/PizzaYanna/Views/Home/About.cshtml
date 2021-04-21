@@ -1,0 +1,389 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+@section head
+{
+    <meta name="description" content="Interested to know how the website was built? Please check the below links :)">
+    <meta name="keywords" content="about us, personal information, personal info, team, links, development, creation, help">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://www.pizza-yanna.somee.com/about">
+    <meta property="og:title" content="About Us">
+    <meta property="og:image" content="http://www.pizza-yanna.somee.com/Design/Logo.png">
+    <meta property="og:description" content="Interested to know how the website was built? Please check the below links :)">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow" />
+    <meta name="distribution" content="global" />
+    <script type="text/javascript">
+        function setLinkCountValue() {
+            var linkContainer = document.getElementById("linkContainer");
+            var linkCount = linkContainer.querySelectorAll("a").length;
+            var linkCountElement = document.getElementById("linkCount");
+            linkCountElement.innerHTML = linkCount;
+        }
+    </script>
+}
+
+<h2>@ViewBag.Title</h2>
+<hr />
+<h3>Development team: </h3>
+
+<p>
+    <strong>
+        F83533 Simeon Valeriev Mihailov<br />
+    </strong>
+</p>
+
+<h3>Links that helped during the development of the website: <span id="linkCount"></span></h3>
+<p id="linkContainer">
+    <br />
+    <a href="https://www.youtube.com/watch?v=gSJFjuWFTdA" target="_blank">ASP.NET MVC Complete Login And Registration System (Part 1)</a>
+    <br />
+    <a href="https://www.youtube.com/watch?v=qGbpfgVm-M4" target="_blank">ASP.NET MVC Complete Login And Registration System (Part 2)</a>
+    <br />
+    <a href="https://www.youtube.com/watch?v=7g2ptkiPLIg" target="_blank">ASP.NET MVC Implement Forgot Password Functionality (Part 3)</a>
+    <br />
+    <a href="https://www.youtube.com/watch?v=GS55DDE3VL0" target="_blank">ASP.NET Core MVC Get All Users From Identity Database</a>
+    <br />
+    <a href="https://www.youtube.com/watch?v=ckclyp0YUwc" target="_blank">ASP.NET 4.6 MVC Upload Video Files (Save MP4)</a>
+    <br />
+    <a href="https://www.youtube.com/watch?v=jjCbbEwjSRs" target="_blank">ASP.NET 4.6 MVC Upload Video Files (Display MP4)</a>
+    <br />
+    <a href="https://forums.asp.net/t/2145133.aspx?Logout+button+in+_Layout+cshtml+" target="_blank">Add Register/Login Interactive Buttons To Navbar</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/6320141/how-to-mix-html-and-c-sharp-code-in-mvc3-with-razor" target="_blank">Mix HTML &amp; C# Code</a>
+    <br />
+    <a href="https://forums.asp.net/t/1920939.aspx?How+to+get+the+last+record+of+EF+model+data+" target="_blank">Get Last Record From Database</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/4091831/how-to-use-ternary-operator-in-razor-specifically-on-html-attributes" target="_blank">Use Ternary Operator Inside Razor Pages</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/815229/how-do-i-redirect-to-the-previous-action-in-asp-net-mvc" target="_blank">Redirect To Previous Action MVC</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/3667828/asp-net-mvc-get-id-of-last-added-record" target="_blank">Get ID Of Last Added Record</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/22650740/asp-net-mvc-5-delete-file-from-server" target="_blank">Delete File From Server</a>
+    <br />
+    <a href="https://www.codeproject.com/Questions/544782/checkplusEmailplusexistsplusorplusnot" target="_blank">Check If Email Is Valid</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/8887794/check-if-string-has-space-in-between-or-anywhere" target="_blank">Check If String Has Space Anywhere Inside (Or Around) Of It</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/6292813/how-to-set-dynamic-title-of-html-actionlink-from-controller" target="_blank">Dynamic Title Of @@Html.ActionLink</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/200476/html-actionlink-method" target="_blank">@@Html.ActionLink Constructors</a>
+    <br />
+    <a href="https://www.tutorialsteacher.com/mvc/htmlhelper-textbox-textboxfor" target="_blank">@@Html.TextBox Constructor</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/37834732/cannot-insert-duplicate-key-in-object-dbo-feedback" target="_blank">Duplicate Key Fix (Check SQL Identity)</a>
+    <br />
+    <a href="https://entityframework.net/many-to-many-relationship" target="_blank">Many-To-Many Relationship Code First</a>
+    <br />
+    <a href="https://www.w3schools.com/html/html_entities.asp" target="_blank">HTML Entities</a>
+    <br />
+    <a href="https://www.tutorialsteacher.com/mvc/htmlhelper-checkbox-checkboxfor" target="_blank">ASP.NET Checkbox</a>
+    <br />
+    <a href="https://www.aspforums.net/Threads/154816/Passing-html-CheckBox-value-from-View-to-Controller-using-C-in-ASPNet-MVC/" target="_blank">Checkbox Value From View To Controller</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/28987105/how-to-get-checkbox-value-from-formcollection" target="_blank">Get Checkbox Value From FormCollection</a>
+    <br />
+    <a href="https://www.infinetsoft.com/Post/-Solved-The-relationship-model-was-not-loaded-because-the-type-model-is-not-available-The-following-information-may-be-useful-in-resolving-the-previous-error-The-required-property-does-not-exist-on-the-type-model-class/1244#.XP_tWcTVKUk" target="_blank">Fix 'The relationship model was not loaded because the type model is not available' Error</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/17727386/dropdownlist-in-mvc-4-with-razor" target="_blank">DropdownList MVC</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/27901175/how-to-get-dropdownlist-selectedvalue-in-controller-in-mvc" target="_blank">Get DropdownList Selected Value</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/10156659/linq-to-entities-does-not-recognize-the-method-system-string-get-item-system-s" target="_blank">LINQ To Entities Error Fix</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/7583770/unable-to-update-the-entityset-because-it-has-a-definingquery-and-no-updatefu" target="_blank">Many-To-Many Relationship No Primary Key Fix</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/35858672/how-to-access-many-to-many-table-via-entity-framework-asp-net" target="_blank">How To Access Many-To-Many Table Via Entity Framework</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/21518995/the-insert-statement-conflicted-with-the-foreign-key-constraint-error" target="_blank">Conflict With The FOREIGN KEY Fix</a>
+    <br />
+    <a href="https://www.w3schools.com/tags/tag_img.asp" target="_blank">HTML &lt;img&gt; Tag</a>
+    <br />
+    <a href="https://forums.asp.net/t/2113260.aspx?Create+Viewbag+property+dynamic" target="_blank">Dynamic ViewBag (ViewData)</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/5108360/force-image-to-a-specific-size-if-it-is-larger" target="_blank">Force Specific Image Size CSS</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/6951335/using-string-format-to-show-decimal-up-to-2-places-or-simple-integer" target="_blank">Format Number String</a>
+    <br />
+    <a href="https://www.w3schools.com/tags/att_input_type_number.asp" target="_blank">Input Area Accept Only Numbers</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/4019592/can-you-make-a-input-type-text-element-have-a-size-shorter-than-1" target="_blank">Input Area Change Width</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/14497711/set-viewbag-before-redirect" target="_blank">Set ViewBag Before Redirect (Use TempData)</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/10076472/check-if-viewdata-is-null-before-setting-dropdownlist-to-it" target="_blank">Check If ViewData Exists</a>
+    <br />
+    <a href="https://docs.microsoft.com/en-us/dotnet/api/system.string.format?view=netframework-4.8" target="_blank">String Format</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/20942926/pass-multiple-parameters-in-html-beginform-mvc4-controller-action" target="_blank">Pass Multiple Parameters To Html.BeginForm()</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/1257482/redirecttoaction-with-parameter" target="_blank">RedirectToAction With Parameter</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/43021/how-do-you-get-the-index-of-the-current-iteration-of-a-foreach-loop" target="_blank">Get Index Of Current Iteration Of 'foreach' Loop</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/49934251/how-to-set-background-image-in-mvc5-in-view" target="_blank">Add Background Image </a>
+    <br />
+    <a href="https://teamtreehouse.com/community/backgroundimage-opacity" target="_blank">Change Background Image Opacity CSS</a>
+    <br />
+    <a href="https://www.w3schools.com/tags/tag_sup.asp" target="_blank">Add Footnotes To Words In MVC ActionLink</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/19795204/c-sharp-splitting-strings-using-string-instead-of-char-as-seperator" target="_blank">Split String Using Another String</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/2281083/using-more-than-one-condition-in-linqs-where-method" target="_blank">Multiple Conditions In LINQ Where</a>
+    <br />
+    <a href="https://forums.asp.net/t/1787379.aspx?how+to+disable+an+Html+CheckBoxFor" target="_blank">Disable Html.CheckBox</a>
+    <br />
+    <a href="https://www.w3schools.com/sql/sql_insert.asp" target="_blank">Automatically Insert Rows Into SQL Database</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/11617979/identity-connection-string-from-local-to-host" target="_blank">Fix SQL ConnectionString On Host ASP.NET</a>
+    <br />
+    <a href="https://forums.asp.net/t/1661793.aspx?Sorry+an+error+occurred+while+processing+your+request+" target="_blank">Fix 'Sorry, an error occurred while processing your request' Error</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/6062192/there-is-already-an-open-datareader-associated-with-this-command-which-must-be-c" target="_blank">Fix 'There is already an open DataReader associated with this Command which must be closed first' Error</a>
+    <br />
+    <a href="https://dotnettutorials.net/lesson/custom-routing-asp-dot-net-mvc/" target="_blank">Create Custom URLs</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/8946887/writing-to-head-but-not-via-layout-cshtml" target="_blank">Write To _Layout.cshtml's &lt;head&gt; From Each Page Separately</a>
+    <br />
+    <a href="https://www.codeproject.com/Articles/1008883/Breadcrumb-in-MVC" target="_blank">Add Breadcrumbs MVC</a>
+    <br />
+    <a href="https://www.adambielecki.com/2014/07/get-current-action-and-controller-name.html" target="_blank">Get Current Action/Controller Name MVC</a>
+    <br />
+    <a href="https://www.embedgooglemap.net" target="_blank">Embed Google Maps HTML</a>
+    <br />
+    <a href="https://gist.github.com/sayedihashimi/2222167" target="_blank">Enable Directory Browsing</a>
+    <br />
+    <a href="https://docs.microsoft.com/en-us/iis/configuration/system.webserver/staticcontent/mimemap" target="_blank">Add Static Content MIME Type</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/37767439/cannot-insert-duplicate-key-in-object-dbo-userinfo-the-duplicate-key-value-is" target="_blank">Cannot Insert Duplicate Key In Object</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/32459263/multiplicity-conflicts-with-the-referential-constraint" target="_blank">Multiplicity Conflicts With The Referential Constraint</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/49661583/convert-nullable-double-to-double-type-datatype" target="_blank">Convert Nullable Double To Double Type</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/14815565/value-cannot-be-null-or-empty-parameter-name-contentpath" target="_blank">Value Cannot Be Null Or Empty</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/4930217/which-version-of-mvc-am-i-using" target="_blank">Check MVC Version</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/717628/asp-net-mvc-404-error-handling" target="_blank">Custom Error 404 Page</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/23976683/asp-net-button-to-redirect-to-another-page" target="_blank">HTML &lt;button&gt; To Redirect To Another Page</a>
+    <br />
+    <a href="http://www.avantixlearning.ca/microsoft-powerpoint/how-to-make-a-picture-transparent-in-powerpoint-and-maintain-aspect-ratio/" target="_blank">Change Image Transparency In PowerPoint</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/21219797/how-to-get-correct-timestamp-in-c-sharp/21219819" target="_blank">Get Correct Timestamp</a>
+    <br />
+    <a href="https://docs.microsoft.com/en-us/dotnet/api/system.io.file.exists?view=netcore-3.1" target="_blank">C# File.Exists() Method</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/12941908/checking-the-existence-of-a-file-using-relative-path" target="_blank">Check If File Exists Via Relative Path</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/17726065/loop-over-modelview-in-razor" target="_blank">Loop Over ModelView In Razor Pages</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/5344805/linq-orderby-descending-query" target="_blank">LINQ OrderByDescending() Method</a>
+    <br />
+    <a href="https://csharp.net-tutorials.com/linq/grouping-data-the-groupby-method/" target="_blank">Grouping Data With The GroupBy() Method</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/13077150/how-to-pass-multiple-parameters-some-complex-objects-with-html-actionlink" target="_blank">Pass Multiple Parameters With Html.ActionLink()</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/1615380/how-to-get-the-day-name-from-a-selected-date" target="_blank">Get Day Name From Selected Date</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/10793604/html-center-input-buttons/24390614" target="_blank">HTML Center &lt;input&gt; Buttons</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/54123235/html5-input-type-date-formatting" target="_blank">HTML &lt;input&gt; Type Date</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/6780614/css-how-to-position-two-elements-on-top-of-each-other-without-specifying-a-hei" target="_blank">Position Two HTML Elements On Top Of Each Other Without Specifying Height</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/13989980/how-to-set-value-in-html-textboxfor-in-razor-syntax" target="_blank">Set Value Of Html.TextBoxFor()</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/7609130/set-the-value-of-an-input-field" target="_blank">Set Value Of &lt;input&gt; Field Via JavaScript</a>
+    <br />
+    <a href="https://docs.microsoft.com/en-us/dotnet/api/system.datetime.compare?view=netcore-3.1" target="_blank">C# DateTime.Compare() Method</a>
+    <br />
+    <a href="https://docs.microsoft.com/en-us/dotnet/api/system.string.compare?view=netcore-3.1" target="_blank">C# String.Compare() Method</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/9198426/mvc3-putting-a-newline-in-viewbag-text" target="_blank">Put Newline Character In ViewBag Text</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/21026130/html-actionlink-value-of-viewbag" target="_blank">Set Html.ActionLink() Value From ViewBag</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/32545718/cannot-implicitly-convert-type-int-to-string-c-sharp-class" target="_blank">Cannot Implicitly Convert Type 'int' To 'string'</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/27960862/formatting-long-datetime-string-to-remove-t-character" target="_blank">Format DateTime String To Remove Year Character</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/20069589/counting-the-number-of-occurrences-of-every-distinct-value-of-a-list" target="_blank">Count Number of Occurences Of Every Distinct Value In List</a>
+    <br />
+    <a href="https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.dictionary-2?view=netcore-3.1" target="_blank">C# Dictionary Class</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/289/how-do-you-sort-a-dictionary-by-value" target="_blank">Sort Dictionary By Value</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/24044400/sort-dictionary-by-value-descending-then-alphabetical-c-sharp" target="_blank">Sort Dictionary By Value Descending And Then Alphabetically</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/5943166/vertical-alignment-of-text-in-a-table-cell" target="_blank">Vertical Alignment Of Text</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/35535994/cannot-convert-from-int-to-system-predicate" target="_blank">Cannot Convert From 'int' To 'System.Predicate'</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/14037870/hyperlink-to-go-back-to-previous-page-in-asp-net" target="_blank">Go Back To Previous Page Without Reloading It</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/15341028/check-if-a-property-exists-in-a-class" target="_blank">Check If A Property Exists In A Class</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/2655035/creating-a-selectlistitem-with-the-disabled-disabled-attribute" target="_blank">Create A SelectListItem With The 'disabled="disabled"' Attribute</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/33107859/updating-an-entity-with-required-properties-in-entity-framework" target="_blank">Update An Entity Without Supplying All Required Properties</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/1344221/how-can-i-generate-random-alphanumeric-strings" target="_blank">Generate Random Alphanumeric Strings</a>
+    <br />
+    <a href="https://math.stackexchange.com/questions/443774/how-to-calculate-the-different-combinations-possible" target="_blank">Calculate All Different Combinations Possible</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/38056482/wrap-entire-span-on-new-line-if-doesnt-fit" target="_blank">Wrap Entire &lt;span&gt; On New Line If It Doesn't Fit</a>
+    <br />
+    <a href="https://improveandrepeat.com/2018/08/a-simple-way-to-shuffle-your-lists-in-c/" target="_blank">Shuffle Lists</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/22563842/mvc-4-httpnotfound-and-404-error" target="_blank">HttpNotFound() And 404 Error Custom Error Page Fix</a>
+    <br />
+    <a href="https://www.w3schools.com/Jsref/prop_date_max.asp" target="_blank">&lt;input&gt; Date 'max' Property</a>
+    <br />
+    <a href="https://www.w3schools.com/tags/att_input_pattern.asp" target="_blank">&lt;input&gt; 'pattern' Attribute</a>
+    <br />
+    <a href="https://regex101.com" target="_blank">Test Regular Expressions</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/29168598/result-of-adding-data-by-entityframework-in-cyrillic-is-exclamation-marks-sql-s" target="_blank">Support Cyrillic Characters In SQL Database</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/18418668/formatting-a-double-to-two-decimal-places" target="_blank">Format Double To Two Decimal Places</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/20797158/linq-to-entities-does-not-recognize-the-method-system-datetime-todatetimesyste" target="_blank">Compare DateTime Objects In LINQ Statement</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/4529019/how-to-use-the-net-timer-class-to-trigger-an-event-at-a-specific-time" target="_blank">Create Timer At Specific Time Each Day</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/22358576/delete-records-when-on-specified-date-asp-net-mvc" target="_blank">Start Timer At Application Launch</a>
+    <br />
+    <a href="https://css-tricks.com/how-to-stack-elements-in-css/" target="_blank">Stack HTML Elements On Top Of Each Other Via CSS</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/19864424/css-responsive-absolute-position-between-elements/19864714" target="_blank">Make Absolute Positioning Responsive</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/2193012/string-was-not-recognized-as-a-valid-datetime-format-dd-mm-yyyy" target="_blank">Fix 'String was not recognized as a valid DateTime' Error</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/5352007/run-code-for-every-page-load" target="_blank">Run C# Code On Every Page Load</a>
+    <br />
+    <a href="https://www.techrepublic.com/article/working-with-the-aspnet-globalasax-file/" target="_blank">Global.asax File Events</a>
+    <br />
+    <a href="https://www.codeproject.com/Questions/988106/clear-form-after-submit" target="_blank">Clear Form After Submit</a>
+    <br />
+    <a href="https://www.w3schools.com/howto/howto_css_image_center.asp" target="_blank">Center HTML Image</a>
+    <br />
+    <a href="https://www.w3schools.com/tags/tag_textarea.asp" target="_blank">HTML &lt;textarea&gt; Tag</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/5235142/how-do-i-disable-the-resizable-property-of-a-textarea" target="_blank">Disable &lt;textarea&gt; Resizing</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/39068128/how-can-i-make-a-textarea-that-fits-within-the-width-of-the-current-viewport" target="_blank">Make &lt;textarea&gt; Responsive</a>
+    <br />
+    <a href="https://www.w3schools.com/tags/att_textarea_maxlength.asp" target="_blank">Set &lt;textarea&gt; Max Length Attribute</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/39862268/how-to-keep-line-breaks-in-sql-server-using-asp-net-and-c" target="_blank">Keep Line Breaks And Spaces From &lt;textarea&gt;</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/36034504/how-to-disable-styling-on-pre-in-bootstrap" target="_blank">Disable Styling On &lt;pre&gt; Tag</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/7132371/can-i-adjust-the-width-of-a-pre-area-to-fit-the-text/49680317" target="_blank">Adjust Width Of &lt;pre&gt; Tag To Scale Text Correctly</a>
+    <br />
+    <a href="http://www.programmerguide.net/2014/10/allowing-html-tags-in-textbox-in-aspnet.html" target="_blank">Allow HTML Code In &lt;textarea&gt;</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/11057698/how-to-render-html-in-a-pre-tag-in-asp-net-mvc" target="_blank">Render HTML In &lt;pre&gt; Tag</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/8756986/removing-localhost-url-in-asp-mvc" target="_blank">Remove 'localhost' From External &lt;a href..&gt; Links</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/56520980/how-to-use-symbol-in-jquery-in-mvc" target="_blank">Use @@ Symbol In MVC Razor Page</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/10026626/check-if-html-snippet-is-valid-with-javascript" target="_blank">Check If HTML Code Is Valid Via JavaScript</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/1147877/how-to-word-wrap-text-in-html" target="_blank">Correctly Word Wrap Text In HTML</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/19827605/change-bootstrap-navbar-collapse-breakpoint-without-using-less" target="_blank">Change Bootstrap Hamburger Menu Breakpoint Via CSS</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/29752882/cant-scroll-within-mobile-drop-down-nav/29753214" target="_blank">Force Scrolling In Bootstrap Hamburger Menu</a>
+    <br />
+    <a href="https://www.w3schools.com/bootstrap/bootstrap_grid_examples.asp" target="_blank">Bootstrap Grid Examples</a>
+    <br />
+    <a href="https://www.w3schools.com/tags/att_input_maxlength.asp" target="_blank">Set &lt;input&gt; Max Length Attribute</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/34057595/allow-2-decimal-places-in-input-type-number/34057860" target="_blank">Allow Two Decimal Places In &lt;input type="number"&gt;</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/21811735/count-all-a-on-html-page" target="_blank">Count Number Of Occurrences Of &lt;a&gt; Links Via JavaScript</a>
+    <br />
+    <a href="https://css-tricks.com/snippets/javascript/check-if-function-exists-before-calling/" target="_blank">Check If JavaScript Function Is Defined Before Calling It</a>
+    <br />
+    <a href="https://dev.to/ljcdev/scroll-to-top-button-in-vanilla-js-beginners-2nc" target="_blank">Create Back To Top Floating Button When User Scrolls Down</a>
+    <br />
+    <a href="https://getbootstrap.com/docs/4.0/components/buttons/" target="_blank">Bootstrap Button Examples</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/19886843/how-to-remove-outline-border-from-input-button" target="_blank">Remove Outline Border Of &lt;button&gt;</a>
+    <br />
+    <a href="https://www.w3schools.com/charsets/ref_utf_arrows.asp" target="_blank">Up Arrow HTML Entity</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/37632571/net-mvc-4-visual-studio-2015-template-make-content-width-100" target="_blank">Make ASP.NET MVC Site Content Take Up Whole Width (Not Used Here)</a>
+    <br />
+    <a href="https://css-tricks.com/responsive-data-tables/" target="_blank">Responsive HTML Tables Via CSS</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/18012513/use-multiple-ids-for-divs-in-css" target="_blank">Use Multiple IDs For Divs In CSS</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/32856080/cant-hide-a-br-in-bootstrap" target="_blank">Hide &lt;br /&gt; Tag Via CSS</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/21295645/how-to-add-bold-text-with-css" target="_blank">Make Text Bold Via CSS</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/2000770/whitespace-html-entity" target="_blank">Alternative HTML Space Entity In Case &amp;nbsp; Looks Weird With Some Fonts</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/8865458/how-do-i-vertically-center-text-with-css" target="_blank">Vertically Center Text Via CSS</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/34912619/css-div-center-multi-line-text-vertically-and-horizontally-with-a-background-ima" target="_blank">Center Multiline Text Vertically And Horizontally Via CSS</a>
+    <br />
+    <a href="https://www.w3schools.com/howto/howto_css_hide_scrollbars.asp" target="_blank">Hide Scrollbars</a>
+    <br />
+    <a href="https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_social_media_buttons2" target="_blank">Social Media Buttons</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/2789703/remove-stubborn-underline-from-link" target="_blank">Remove Link Decoration</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/17047694/add-line-break-to-after-or-before-pseudo-element-content/17047836" target="_blank">Put Newline Character In CSS 'content' Property</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/22173762/check-if-two-lists-are-equal" target="_blank">Check If Two Lists Contain The Same Elements</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/22664730/system-web-mvc-htmlhelper-does-not-contain-a-definition-for-mvcsitemap" target="_blank">Fix 'HtmlHelper&lt;dynamic&gt; does not contain a definition for MvcSiteMap' Error</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/3944803/use-linq-to-get-items-in-one-list-that-are-not-in-another-list" target="_blank">Get Items From One List That Are Not In Another</a>
+    <br />
+    <a href="https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1.exists?view=netcore-3.1" target="_blank">C# List.Exists() Method</a>
+    <br />
+    <a href="https://stackoverflow.com/questions/7132738/incrementing-a-numerical-value-in-a-dictionary" target="_blank">Increment Numerical Value In C# Dictionary</a>
+    <br />
+    <a href="https://alicebobandmallory.com/articles/2012/10/18/merge-collections-without-duplicates-in-c" target="_blank">Merge Two Lists Without Having Duplicate Items In Result</a>
+    <br />
+    <a href="https://pnghut.com" target="_blank">Download Transparent PNG Images</a>
+    <br />
+    <a href="https://tinypng.com" target="_blank">Optimize PNG Images</a>
+    <br />
+    <a href="https://www.optimizesmart.com/how-to-use-open-graph-protocol/" target="_blank">OpenGraph (OG) Tags</a>
+    <br />
+    <a href="https://www.hermesthemes.com/meta-robots-noindex-nofollow/" target="_blank">Meta Robots</a>
+    <br />
+    <a href="https://technicalseo.com/tools/docs/robots-txt/" target="_blank">'robots.txt' File</a>
+    <br />
+    <a href="https://www.xml-sitemaps.com" target="_blank">XML Site Map Generator</a>
+    <br />
+    <a href="https://schema.org/docs/gs.html" target="_blank">Get Started With Schema Microdata Tags</a>
+    <br />
+    <a href="https://schema.org/docs/full.html" target="_blank">Full Hierarchy Of Schema Microdata Types</a>
+    <br />
+    <a href="https://schema.org/docs/schemas.html" target="_blank">Organization of Schemas (Microdata Tags)</a>
+    <br />
+    <a href="https://seositecheckup.com" target="_blank">SEO Checker #1</a>
+    <br />
+    <a href="https://neilpatel.com/seo-analyzer/" target="_blank">SEO Checker #2</a>
+    <br />
+    <a href="https://tools.pingdom.com" target="_blank">Website Speed Checker</a>
+    <br />
+    <a href="https://developers.google.com/speed/pagespeed/insights/?hl=bg" target="_blank">Google PageSpeed Insights</a>
+    <br />
+    <a href="https://www.codeproject.com/articles/697108/visual-studio-painlessly-renaming-your-project-and" target="_blank">Rename Visual Studio Solution Successfully (Delete 'bin' &amp; 'obj' Folders!)</a>
+    <br />
+    <a href="https://developercommunity.visualstudio.com/content/problem/219214/cant-delete-bin-folder-after-closing-vs-until-afte.html" target="_blank">Delete Visual Studio Solution's 'bin' Folder Without Waiting</a>
+    <br />
+    <a href="https://myaccount.google.com/lesssecureapps" target="_blank">Enable Less Secure Apps</a>
+</p>

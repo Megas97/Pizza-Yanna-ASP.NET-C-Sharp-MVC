@@ -1,0 +1,349 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    background-image: url(../Design/Background.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select {
+    max-width: 280px;
+}
+
+textarea {
+    max-width: 95%;
+}
+
+.wrapper {
+    display: block;
+}
+
+@media screen and (min-width: 768px) {
+    .wrapper {
+        display: flex;
+    }
+    
+    .inner__wrapper {
+        width: 50%;
+    }
+
+    .inner__wrapper2 {
+        width: 60%;
+    }
+
+    .inner__wrapper3 {
+        width: 40%;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1200px) {
+    .navbar-header {
+        float: none;
+    }
+
+    .navbar-left, .navbar-right {
+        float: none !important;
+    }
+
+    .navbar-toggle {
+        display: block;
+    }
+
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+
+    .navbar-fixed-top {
+        top: 0;
+        border-width: 0 0 1px;
+    }
+
+    .navbar-collapse.collapse {
+        display: none !important;
+    }
+
+    .navbar-nav {
+        float: none !important;
+        margin-top: 7.5px;
+    }
+
+    .navbar-nav > li {
+        float: none;
+    }
+
+    .navbar-nav > li > a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .collapse.in {
+        display: block !important;
+    }
+
+    #hamburgerMenuWrapper {
+        overflow-y: scroll;
+    }
+}
+
+#scrollToTopBtn {
+    width: 35px;
+    height: 35px;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+    display: none;
+    outline: none;
+}
+
+.usersListTableBodyNewline {
+    display: none;
+}
+
+.desktopOnlyTableNewline {
+    display: inline-block;
+}
+
+/* Max width before this PARTICULAR table gets nasty. This query will take effect for any screen smaller than 760px and also iPads specifically. */
+@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+
+    /* Force table to not be like tables anymore */
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        border: 1px solid #ccc;
+    }
+
+    td {
+        /* Behave like a "row" */
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+    }
+
+    td:before {
+        /* Now like a table header */
+        position: absolute;
+        /* Top/left values mimic padding */
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+    }
+
+    /* Label the data differently for each type of table*/
+    /* OrderHistory, Checkout & UserOrderHistory Tables */
+    #orderHistoryTable td:nth-of-type(1):before, #checkoutTable td:nth-of-type(1):before, #userOrderHistoryTable td:nth-of-type(1):before {
+        content: "";
+    }
+
+    #orderHistoryTable td:nth-of-type(2):before, #checkoutTable td:nth-of-type(2):before, #userOrderHistoryTable td:nth-of-type(2):before {
+        content: "Item Name";
+        font-weight: bold;
+    }
+
+    #orderHistoryTable td:nth-of-type(3):before, #checkoutTable td:nth-of-type(3):before, #userOrderHistoryTable td:nth-of-type(3):before {
+        content: "Item Size";
+        font-weight: bold;
+    }
+
+    #orderHistoryTable td:nth-of-type(4):before, #checkoutTable td:nth-of-type(4):before, #userOrderHistoryTable td:nth-of-type(4):before {
+        content: "Single Price";
+        font-weight: bold;
+    }
+
+    #orderHistoryTable td:nth-of-type(5):before, #checkoutTable td:nth-of-type(5):before, #userOrderHistoryTable td:nth-of-type(5):before {
+        content: "Item Quantity";
+        font-weight: bold;
+    }
+
+    #orderHistoryTable td:nth-of-type(6):before, #checkoutTable td:nth-of-type(6):before, #userOrderHistoryTable td:nth-of-type(6):before {
+        content: "Total Price";
+        font-weight: bold;
+    }
+
+    #orderHistoryTable td:nth-of-type(7):before {
+        content: "Options";
+        font-weight: bold;
+    }
+
+    #checkoutTable td:nth-of-type(7):before {
+        content: "\00000aOptions";
+        font-weight: bold;
+        white-space: pre;
+    }
+
+    /* UsersList Table */
+
+    #usersListTableBody {
+        text-align: center;
+        font-weight: bold;
+    }
+
+    #usersListTable td:nth-of-type(1):before {
+        content: "User ID";
+        text-align: left;
+        font-weight: bold;
+    }
+
+    #usersListTable td:nth-of-type(2):before {
+        content: "First Name";
+        text-align: left;
+        font-weight: bold;
+    }
+
+    #usersListTable td:nth-of-type(3):before {
+        content: "Last Name";
+        text-align: left;
+        font-weight: bold;
+    }
+
+    #usersListTable td:nth-of-type(4):before {
+        content: "Email";
+        text-align: left;
+        font-weight: bold;
+    }
+
+    #usersListTable td:nth-of-type(5):before {
+        content: "Address";
+        text-align: left;
+        font-weight: bold;
+    }
+
+    #usersListTable td:nth-of-type(6):before {
+        content: "Is Email Verified?";
+        text-align: left;
+        font-weight: bold;
+    }
+
+    #usersListTable td:nth-of-type(7):before {
+        content: "Is Admin?";
+        text-align: left;
+        font-weight: bold;
+    }
+
+    #usersListTable td:nth-of-type(8):before {
+        content: "Order History";
+        text-align: left;
+        font-weight: bold;
+    }
+
+    .usersListTableBodyNewline {
+        display: inline-block;
+    }
+
+    .desktopOnlyTableNewline {
+        display: none;
+    }
+
+    /* ViewAddresses Table */
+
+    #viewAddressesTable td:nth-of-type(1):before {
+        content: "Address Location";
+        font-weight: bold;
+    }
+
+    #viewAddressesTable td:nth-of-type(2):before {
+        content: "Address Count";
+        font-weight: bold;
+    }
+
+    #viewAddressesTable td:nth-of-type(3):before {
+        content: "Address Map";
+        font-weight: bold;
+    }
+
+    /* ViewStatistics Table */
+
+    #viewStatisticsTable td:nth-of-type(1):before {
+        content: "";
+    }
+
+    #viewStatisticsTable td:nth-of-type(2):before {
+        content: "User ID";
+        font-weight: bold;
+    }
+
+    #viewStatisticsTable td:nth-of-type(3):before {
+        content: "Item Name";
+        font-weight: bold;
+    }
+
+    #viewStatisticsTable td:nth-of-type(4):before {
+        content: "Item Size";
+        font-weight: bold;
+    }
+
+    #viewStatisticsTable td:nth-of-type(5):before {
+        content: "Single Price";
+        font-weight: bold;
+    }
+
+    #viewStatisticsTable td:nth-of-type(6):before {
+        content: "Item Quantity";
+        font-weight: bold;
+    }
+
+    #viewStatisticsTable td:nth-of-type(7):before {
+        content: "Total Price";
+        font-weight: bold;
+    }
+
+    #viewStatisticsTable td:nth-of-type(8):before {
+        content: "Order Price";
+        font-weight: bold;
+    }
+
+    /* TotalPizzasSold, TotalDrinksSold & TotalDessertsSold Tables */
+
+    #totalPizzasSoldTable td:nth-of-type(1):before, #totalDrinksSoldTable td:nth-of-type(1):before, #totalDessertsSoldTable td:nth-of-type(1):before {
+        content: "";
+    }
+
+    #totalPizzasSoldTable td:nth-of-type(2):before, #totalDrinksSoldTable td:nth-of-type(2):before, #totalDessertsSoldTable td:nth-of-type(2):before {
+        content: "Item Name";
+        font-weight: bold;
+    }
+
+    #totalPizzasSoldTable td:nth-of-type(3):before, #totalDrinksSoldTable td:nth-of-type(3):before, #totalDessertsSoldTable td:nth-of-type(3):before {
+        content: "Items Sold";
+        font-weight: bold;
+    }
+
+    #totalPizzasSoldTable td:nth-of-type(4):before, #totalDrinksSoldTable td:nth-of-type(4):before, #totalDessertsSoldTable td:nth-of-type(4):before {
+        content: "Total Price";
+        font-weight: bold;
+    }
+}

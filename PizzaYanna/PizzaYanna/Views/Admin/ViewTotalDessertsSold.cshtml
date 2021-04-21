@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Total Desserts Sold";
+}
+
+@section head
+{
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow" />
+    <meta name="distribution" content="global" />
+}
+
+<h2>Total Desserts Sold</h2>
+
+<hr />
+<div class="container text-success" style="text-align: center;">
+    @ViewBag.Message
+</div>
+
+<p style="font-size: 30px; text-align: center; ">@ViewBag.OrdersDateText</p>
+
+@if (Model != null)
+{
+    <hr />
+    <div class="container text-success" style="text-align: center;">
+        @ViewBag.Message2
+    </div>
+    <div class="container text-success" style="text-align: center;">
+        @ViewBag.Message3
+    </div>
+    <hr />
+
+    <table class="table" id="totalDessertsSoldTable">
+        <thead>
+            <tr>
+                <th style="font-size:16px;">
+                    <center></center>
+                </th>
+                <th style="font-size:16px;">
+                    <center>Item Name</center>
+                </th>
+                <th style="font-size:16px;">
+                    <center>Items Sold</center>
+                </th>
+                <th style="font-size:16px;">
+                    <center>Total Price</center>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (item.DessertPicturePath != null)
+                {
+                    <tr itemscope itemtype="http://schema.org/OrderItem">
+                        <td itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
+                            <center><img style="width:80px; height:80px;" src="@item.DessertPicturePath" alt="@item.DessertName - @item.DessertSize" typeof="image/*" /></center>
+                        </td>
+                        <td style="font-size:14px;" itemprop="name">
+                            <br />
+                            <center><strong>@item.DessertName</strong></center>
+                        </td>
+                        <td style="font-size:14px;" itemprop="orderQuantity">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong>@(ViewData["dessertCount" + item.DessertID] != null ? ViewData["dessertCount" + item.DessertID] : ViewData["dessertCount" + item.DessertName])</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong>@String.Format("{0:0.00}", ViewData["dessertsTotalPrice" + item.DessertID] != null ? ViewData["dessertsTotalPrice" + item.DessertID] : ViewData["dessertsTotalPrice" + item.DessertName]) BGN</strong></center>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+
+<div style="text-align:center;">
+    <input type="button" value="View Statistics" class="btn btn-default" onclick="location.href='javascript: history.go(-1)';" />
+</div>

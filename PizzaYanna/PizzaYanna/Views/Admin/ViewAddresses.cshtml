@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "View Addresses";
+}
+
+@section head
+{
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow" />
+    <meta name="distribution" content="global" />
+}
+
+<h2>View Addresses</h2>
+
+<hr />
+<div class="container text-success" style="text-align: center;">
+    @ViewBag.Message
+</div>
+
+@if (Model != null)
+{
+    <hr />
+
+    <table class="table" id="viewAddressesTable">
+        <thead>
+            <tr>
+                <th style="font-size:16px;">
+                    <center>Address Location</center>
+                </th>
+
+                <th style="font-size:16px;">
+                    <center>Address Count</center>
+                </th>
+
+                <th style="font-size:16px;">
+                    <center>Address Map</center>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (KeyValuePair<string, int> kvp in Model)
+            {
+                <tr itemscope itemtype="http://schema.org/PostalAddress">
+                    <td style="font-size:14px; vertical-align: middle;" itemprop="streetAddress">
+                        <br />
+                        <center><strong>@kvp.Key</strong></center>
+                    </td>
+                    <td style="font-size:14px; vertical-align: middle;">
+                        <br class="desktopOnlyTableNewline" />
+                        <center><strong>@kvp.Value</strong></center>
+                    </td>
+                    <td style="font-size:14px; vertical-align: middle;">
+                        <br />
+                        <center>
+                            <div class="mapouter">
+                                <style>
+                                    .mapouter {
+                                        position: relative;
+                                        text-align: right;
+                                        width: 300px;
+                                        height: 200px;
+                                    }
+
+                                    .gmap_canvas {
+                                        overflow: hidden;
+                                        background: none !important;
+                                        width: 300px;
+                                        height: 200px;
+                                    }
+                                </style>
+                                <div class="gmap_canvas">
+                                    <iframe width="300" height="200" id="gmap_canvas" src="https://maps.google.com/maps?q=@kvp.Key&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                                </div>
+                            </div>
+                        </center>
+                        <br />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <br />
+}
+
+<div style="text-align:center;">
+    <input type="button" value="View Statistics" class="btn btn-default" onclick="location.href='javascript: history.go(-1)';" />
+</div>

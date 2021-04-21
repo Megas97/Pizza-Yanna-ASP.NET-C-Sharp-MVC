@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Promotions";
+}
+
+@section head
+{
+    <meta name="description" content="View all current promotions.">
+    <meta name="keywords" content="promotion, promotions, promo, code, price, lower, low, promo code, promo codes, promotion code, promotion codes, low price, lower price">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://www.pizza-yanna.somee.com/promotions">
+    <meta property="og:title" content="Promotions">
+    <meta property="og:image" content="http://www.pizza-yanna.somee.com/Design/Logo.png">
+    <meta property="og:description" content="View all current promotions.">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow" />
+    <meta name="distribution" content="global" />
+}
+
+<h2>Promotions</h2>
+
+<hr />
+<div class="form-group">
+    <div class="text-success">
+        @(ViewBag.Message)&nbsp;
+    </div>
+</div>
+
+<hr />
+
+<div class="wrapper">
+    <div class="inner__wrapper">
+        <div>
+            @using (Html.BeginForm("Promotions", "Home", FormMethod.Post))
+            {
+                <div class="form-horizontal">
+                    <label>Enter a promo code below!</label>
+                    <br />
+                    @Html.TextBox("PromoCodeInput", null, new { @class = "form-control", @required = "required", maxlength = "8", @pattern = "[A-Za-z0-9]{8}" })
+                    <br />
+                    <div class="form-group">
+                        <div class="col-md-offset-0 col-md-10">
+                            <input type="submit" value="Use Promo Code" class="btn btn-success" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    @if ((ViewBag.PromosText != null) && (ViewBag.PromosText != ""))
+    {
+        <div class="inner__wrapper">
+            <div>
+                <img style="width:150px; height:150px; display: block; margin-left: auto; margin-right: auto;" itemscope itemtype="http://schema.org/ImageObject" src="/Design/PromotionsLogo.png" alt="Promotions Logo" typeof="image/*" />
+                <br />
+                <p><pre style="border: 0; background-color: transparent; white-space: pre-wrap; word-break: break-word;">@Html.Raw(ViewBag.PromosText)</pre></p>
+            </div>
+        </div>
+    }
+</div>

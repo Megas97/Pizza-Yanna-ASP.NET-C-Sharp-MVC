@@ -1,0 +1,86 @@
+﻿@{
+    ViewBag.Title = "Total Drinks Sold";
+}
+
+@section head
+{
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow" />
+    <meta name="distribution" content="global" />
+}
+
+<h2>Total Drinks Sold</h2>
+
+<hr />
+<div class="container text-success" style="text-align: center;">
+    @ViewBag.Message
+</div>
+
+<p style="font-size: 30px; text-align: center; ">@ViewBag.OrdersDateText</p>
+
+@if (Model != null)
+{
+    <hr />
+    <div class="container text-success" style="text-align: center;">
+        @ViewBag.Message2
+    </div>
+    <div class="container text-success" style="text-align: center;">
+        @ViewBag.Message3
+    </div>
+    <hr />
+
+    <table class="table" id="totalDrinksSoldTable">
+        <thead>
+            <tr>
+                <th style="font-size:16px;">
+                    <center></center>
+                </th>
+                <th style="font-size:16px;">
+                    <center>Item Name</center>
+                </th>
+                <th style="font-size:16px;">
+                    <center>Items Sold</center>
+                </th>
+                <th style="font-size:16px;">
+                    <center>Total Price</center>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                if (item.DrinkPicturePath != null)
+                {
+                    <tr itemscope itemtype="http://schema.org/OrderItem">
+                        <td itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
+                            @if (item.DrinkPicturePath.Equals("/Design/Unavailable.png"))
+                            {
+                                <center><img style="width:80px; height:80px;" src="@item.DrinkPicturePath" alt="@item.DrinkName - @item.DrinkSize" typeof="image/*" /></center>
+                            }
+                            else
+                            {
+                                <center><img style="width:20px; height:80px;" src="@item.DrinkPicturePath" alt="@item.DrinkName - @item.DrinkSize" typeof="image/*" /></center>
+                            }
+                        </td>
+                        <td style="font-size:14px;" itemprop="name">
+                            <br />
+                            <center><strong>@item.DrinkName</strong></center>
+                        </td>
+                        <td style="font-size:14px;" itemprop="orderQuantity">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong>@(ViewData["drinkCount" + item.DrinkID] != null ? ViewData["drinkCount" + item.DrinkID] : ViewData["drinkCount" + item.DrinkName])</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong>@String.Format("{0:0.00}", ViewData["drinksTotalPrice" + item.DrinkID] != null ? ViewData["drinksTotalPrice" + item.DrinkID] : ViewData["drinksTotalPrice" + item.DrinkName]) BGN</strong></center>
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+}
+
+<div style="text-align:center;">
+    <input type="button" value="View Statistics" class="btn btn-default" onclick="location.href='javascript: history.go(-1)';" />
+</div>

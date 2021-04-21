@@ -1,0 +1,56 @@
+﻿@model PizzaYanna.Models.Drink
+
+@{
+    ViewBag.Title = "View Drink Order";
+}
+
+@section head
+{
+    <meta name="description" content="View your drink order.">
+    <meta name="keywords" content="view, view order, view drink, view drink order, price, quantity, single, total">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="View Drink Order">
+    <meta property="og:image" content="http://www.pizza-yanna.somee.com/Design/Logo.png">
+    <meta property="og:description" content="View your drink order.">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow" />
+    <meta name="distribution" content="global" />
+}
+
+<h2>View Drink Order</h2>
+
+<hr />
+<div class="container text-success" style="text-align: center;">
+    @(ViewBag.Message)&nbsp;
+</div>
+<hr />
+
+<div class="container" itemscope itemtype="http://schema.org/OrderItem">
+    <center>
+        <b style="color:#000000; font-size:20px;" itemprop="name">@Model.DrinkName</b>
+        <br />
+        <img style="width:80px; height:250px;" itemprop="image" itemscope itemtype="http://schema.org/ImageObject" src="@Url.Content(Model.DrinkPicturePath)" alt="@Model.DrinkName - @Model.DrinkSize" typeof="image/*" />
+        <br />
+        <b>
+            Size: @Model.DrinkSize
+            <br />
+            Single Price: <s>@(ViewData.ContainsKey("drinkOldPrice") ? String.Format("{0:0.00}", ViewData["drinkOldPrice"]) : "")</s>
+            @if (ViewData.ContainsKey("drinkOldPrice"))
+            {
+                @:&#32;
+            }
+            @String.Format("{0:0.00}", ViewData["drinkPrice"]) BGN
+            <br />
+            <span itemprop="orderQuantity">Quantity: @ViewBag.Quantity</span>
+            <br />
+            Total Price: <s>@(ViewData.ContainsKey("oldTotalDrinkPrice") ? String.Format("{0:0.00}", ViewData["oldTotalDrinkPrice"]) : "")</s>
+            @if (ViewData.ContainsKey("oldTotalDrinkPrice"))
+            {
+                @:&#32;
+            }
+            @String.Format("{0:0.00}", ViewData["totalDrinkPrice"]) BGN
+            <br /><br />
+            <input type="button" value="Back To Cart" class="btn btn-default" onclick="location.href = '@Url.Action("Checkout", "Home")';" />
+        </b>
+    </center>
+</div>

@@ -1,0 +1,84 @@
+﻿@model PizzaYanna.Models.Dessert
+
+@{
+    ViewBag.Title = "Upload Dessert";
+}
+
+@section head
+{
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow" />
+    <meta name="distribution" content="global" />
+}
+
+<h2>Upload Dessert</h2>
+
+<hr />
+<div class="container text-success" style="text-align: center;">
+    @ViewBag.Message&nbsp;
+</div>
+<hr />
+
+@using (Html.BeginForm("UploadDessert", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DessertName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DessertName, new { htmlAttributes = new { @class = "form-control", @required = "required", maxlength = "30", @pattern = "^[A-Za-zА-Яа-я]+[A-Za-zА-Яа-я ]*$" } })
+                @Html.ValidationMessageFor(model => model.DessertName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group" itemscope itemtype="http://schema.org/ItemList">
+            @Html.LabelFor(model => model.DessertSize, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @using PizzaYanna.Models;
+                @{
+                    List<SelectListItem> sizesList = new List<SelectListItem>();
+                    sizesList.Add(new SelectListItem
+                    {
+                        Text = "Small (100g)",
+                        Value = "Small (100g)"
+                    });
+                    sizesList.Add(new SelectListItem
+                    {
+                        Text = "Medium (150g)",
+                        Value = "Medium (150g)"
+                    });
+                    sizesList.Add(new SelectListItem
+                    {
+                        Text = "Large (200g)",
+                        Value = "Large (200g)"
+                    });
+                    @Html.DropDownList("SizesList", sizesList, "-- Select Size --", new { @class = "form-control", @required = "required" })
+                }
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DessertPrice, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBox("DessertPriceInput", null, new { @class = "form-control", @type = "number", @min = 0.1, @max = 100, @step = 0.01, @required = "required", @pattern = "^(([0-9]{1,2})(.([0-9]{1,2}))?)$" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DessertPicturePath, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="input-group">
+                    @Html.TextBox("Image", "", new { type = "file", accept = "image/*", @required = "required" }) <br />
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Upload" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+}

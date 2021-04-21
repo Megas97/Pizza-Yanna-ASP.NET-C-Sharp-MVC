@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Drinks";
+}
+
+@section head
+{
+    <meta name="description" content="Choose a drink.">
+    <meta name="keywords" content="sofia, bulgaria, tasty, cheap, cola, fanta, sprite, dr pepper, large, small, medium, order, cart, all, menu, lunch, dinner, home, delivery, yanna, pizza yanna">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://www.pizza-yanna.somee.com/drinks">
+    <meta property="og:title" content="All Drinks">
+    <meta property="og:image" content="http://www.pizza-yanna.somee.com/Design/Logo.png">
+    <meta property="og:description" content="Choose a drink.">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow" />
+    <meta name="distribution" content="global" />
+}
+
+<h2>Drinks</h2>
+
+<hr />
+<div class="container text-success" style="text-align: center;">
+    @(ViewBag.Message)&nbsp;
+</div>
+@{
+    int drinkCount = 0;
+    foreach (var drink in Model)
+    {
+        if (drink != null)
+        {
+            drinkCount++;
+        }
+    }
+}
+@if (drinkCount > 0)
+{
+    <br />
+    <div class="container text-success" style="text-align: center;">
+        @(ViewBag.Message2)&nbsp;
+    </div>
+    <hr />
+}
+
+<div class="container">
+    @foreach (var drink in Model)
+    {
+        <div class="col-sm-6 col-md-4 col-xs-12" itemscope itemtype="http://schema.org/MenuItem">
+            <br />
+            <div style="height: 400px; text-align: center; color: #000000">
+                <strong style="color:#000000; font-size:20px;" itemprop="name">@drink.DrinkName</strong>
+                <br />
+                <img style="width:80px; height:250px;" itemprop="image" itemscope itemtype="http://schema.org/ImageObject" src="@Url.Content(drink.DrinkPicturePath)" alt="@drink.DrinkName - @drink.DrinkSize" typeof="image/*" />
+                <br />
+                <strong>Size: @drink.DrinkSize</strong>
+                <br />
+                <strong>Price: @String.Format("{0:0.00}", drink.DrinkPrice) BGN</strong>
+                <br />
+                <div>
+                    <strong>@Html.ActionLink("Add To Cart", "CreateOrderWithDrink", "Home", new { id = drink.DrinkID }, null)</strong>
+                </div>
+            </div>
+            <br />
+        </div>
+    }
+</div>

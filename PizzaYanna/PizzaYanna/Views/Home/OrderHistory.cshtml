@@ -1,0 +1,320 @@
+﻿@model PizzaYanna.Models.GroupedOrderHistoryModel
+
+@{
+    ViewBag.Title = "Order History";
+}
+
+@section head
+{
+    <meta name="description" content="View your previous orders.">
+    <meta name="keywords" content="order, user, history, bought, item, large, small, medium, order, cart, home, delivery, yanna, pizza yanna">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://www.pizza-yanna.somee.com/order-history">
+    <meta property="og:title" content="Order History">
+    <meta property="og:image" content="http://www.pizza-yanna.somee.com/Design/Logo.png">
+    <meta property="og:description" content="View your previous orders.">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow" />
+    <meta name="distribution" content="global" />
+}
+
+<h2>Order History</h2>
+
+<hr />
+<div class="container text-success" style="text-align: center;">
+    @(ViewBag.Message)&nbsp;
+</div>
+<br />
+@if (Model.groupedOrderHistoryList.Count() > 0)
+{
+    <div class="container text-success" style="text-align: center;">
+        @(ViewBag.Message2)&nbsp;
+    </div>
+}
+
+@foreach (var group in Model.groupedOrderHistoryList)
+{
+    DateTime date = DateTime.Parse(group.Key);
+    var dayName = date.DayOfWeek.ToString();
+    double totalGroupPrice = 0.0;
+    <hr />
+    <br />
+    <p style="font-size: 30px; text-align: center; ">@group.Key (@dayName)</p>
+    <br />
+    <table class="table" id="orderHistoryTable">
+        <thead>
+            <tr>
+                <th style="font-size:16px;">
+                    <center></center>
+                </th>
+                <th style="font-size:16px;">
+                    <center>Item Name</center>
+                </th>
+                <th style="font-size:16px;">
+                    <center>Item Size</center>
+                </th>
+                <th style="font-size:16px;">
+                    <center>Single Price</center>
+                </th>
+                <th style="font-size:16px;">
+                    <center>Item Quantity</center>
+                </th>
+                <th style="font-size:16px;">
+                    <center>Total Price</center>
+                </th>
+                <th style="font-size:16px;">
+                    <center>Options</center>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in group)
+            {
+                if (ViewData["pizzaPicturePath" + item.OrderHistoryID] != null)
+                {
+                    <tr itemscope itemtype="http://schema.org/OrderItem">
+                        <td itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
+                            <center><img style="width:80px; height:80px;" src="@ViewData["pizzaPicturePath" + item.OrderHistoryID]" alt="@ViewData["pizzaName" + item.OrderHistoryID] - @ViewData["pizzaSize" + item.OrderHistoryID]" typeof="image/*" /></center>
+                        </td>
+                        <td style="font-size:14px;" itemprop="name">
+                            <br />
+                            <center><strong>@ViewData["pizzaName" + item.OrderHistoryID]</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong>@ViewData["pizzaSize" + item.OrderHistoryID]</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong> @String.Format("{0:0.00}", ViewData["pizzaPrice" + item.OrderHistoryID]) BGN</strong></center>
+                        </td>
+                        <td style="font-size:14px;" itemprop="orderQuantity">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong> @item.PizzaAmount</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong> @String.Format("{0:0.00}", (double)ViewData["pizzaPrice" + item.OrderHistoryID] * item.PizzaAmount.GetValueOrDefault()) BGN</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center>
+                                <strong>
+                                    @using PizzaYanna.Models;
+                                    @if (!item.PizzaName.StartsWith("Custom: ") && (System.IO.File.Exists(@"" + Server.MapPath(item.PizzaPicturePath))))
+                                    {
+                                        @Html.ActionLink("Order Again", "OrderPizzaAgain", "Home", new { id = item.PizzaID, amount = item.PizzaAmount }, null)
+                                    }
+                                    else if (item.PizzaName.StartsWith("Custom: ") && (System.IO.File.Exists(@"" + Server.MapPath(item.PizzaPicturePath))))
+                                    {
+                                        using (DBEntities de = new DBEntities())
+                                        {
+                                            int pizzaRealID = de.Pizzas.Where(a => a.PizzaPicturePath.Equals(item.PizzaPicturePath)).FirstOrDefault().PizzaID;
+                                            @Html.ActionLink("Customize Again", "CreateCustomPizza", "Home", new { id = pizzaRealID, openedFrom = "OrderHistory" }, null)
+                                        }
+                                    }
+                                    else if (!item.PizzaName.StartsWith("Custom: ") && !System.IO.File.Exists(@"" + Server.MapPath(item.PizzaPicturePath)))
+                                    {
+                                        using (DBEntities de = new DBEntities())
+                                        {
+                                            bool foundOtherPizza = false;
+                                            int otherPizzaID = 0;
+                                            foreach (var pizza in de.Pizzas)
+                                            {
+                                                if (pizza.PizzaName.Equals(item.PizzaName) && (pizza.PizzaSize.Equals(item.PizzaSize)))
+                                                {
+                                                    foundOtherPizza = true;
+                                                    otherPizzaID = pizza.PizzaID;
+                                                    break;
+                                                }
+                                            }
+                                            if (foundOtherPizza)
+                                            {
+                                                @Html.ActionLink("Order Again", "OrderPizzaAgain", "Home", new { id = otherPizzaID, amount = item.PizzaAmount }, null)
+                                            }
+                                            else
+                                            {
+                                                @:Not Available
+                                            }
+                                        }
+                                    }
+                                    else if (item.PizzaName.StartsWith("Custom: ") && !System.IO.File.Exists(@"" + Server.MapPath(item.PizzaPicturePath)))
+                                    {
+                                        using (DBEntities de = new DBEntities())
+                                        {
+                                            bool foundOtherPizza = false;
+                                            int otherPizzaID = 0;
+                                            foreach (var pizza in de.Pizzas)
+                                            {
+                                                if (("Custom: " + pizza.PizzaName).Equals(item.PizzaName))
+                                                {
+                                                    foundOtherPizza = true;
+                                                    otherPizzaID = pizza.PizzaID;
+                                                    break;
+                                                }
+                                            }
+                                            if (foundOtherPizza)
+                                            {
+                                                @Html.ActionLink("Customize Again", "CreateCustomPizza", "Home", new { id = otherPizzaID, openedFrom = "OrderHistory" }, null)
+                                            }
+                                            else
+                                            {
+                                                @:Not Available
+                                            }
+                                        }
+                                    }
+                                </strong>
+                            </center>
+                        </td>
+                    </tr>
+                    totalGroupPrice += (double)ViewData["pizzaPrice" + item.OrderHistoryID] * item.PizzaAmount.GetValueOrDefault();
+                }
+                else if (ViewData["drinkPicturePath" + item.OrderHistoryID] != null)
+                {
+                    <tr itemscope itemtype="http://schema.org/OrderItem">
+                        <td itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
+                            @if (ViewData["drinkPicturePath" + item.OrderHistoryID].Equals("/Design/Unavailable.png"))
+                            {
+                                <center><img style="width:80px; height:80px;" src="@ViewData["drinkPicturePath" + item.OrderHistoryID]" alt="@ViewData["drinkName" + item.OrderHistoryID] - @ViewData["drinkSize" + item.OrderHistoryID]" typeof="image/*" /></center>
+                            }
+                            else
+                            {
+                                <center><img style="width:20px; height:80px;" src="@ViewData["drinkPicturePath" + item.OrderHistoryID]" alt="@ViewData["drinkName" + item.OrderHistoryID] - @ViewData["drinkSize" + item.OrderHistoryID]" typeof="image/*" /></center>
+                            }
+                        </td>
+                        <td style="font-size:14px;" itemprop="name">
+                            <br />
+                            <center><strong>@ViewData["drinkName" + item.OrderHistoryID]</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong>@ViewData["drinkSize" + item.OrderHistoryID]</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong> @String.Format("{0:0.00}", ViewData["drinkPrice" + item.OrderHistoryID]) BGN</strong></center>
+                        </td>
+                        <td style="font-size:14px;" itemprop="orderQuantity">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong> @item.DrinkAmount</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong> @String.Format("{0:0.00}", (double)ViewData["drinkPrice" + item.OrderHistoryID] * item.DrinkAmount.GetValueOrDefault()) BGN</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center>
+                                <strong>
+                                    @using PizzaYanna.Models;
+                                    @if (System.IO.File.Exists(@"" + Server.MapPath(item.DrinkPicturePath)))
+                                    {
+                                        @Html.ActionLink("Order Again", "OrderDrinkAgain", "Home", new { id = item.DrinkID, amount = item.DrinkAmount }, null)
+                                    }
+                                    else
+                                    {
+                                        using (DBEntities de = new DBEntities())
+                                        {
+                                            bool foundOtherDrink = false;
+                                            int otherDrinkID = 0;
+                                            foreach (var drink in de.Drinks)
+                                            {
+                                                if (drink.DrinkName.Equals(item.DrinkName) && (drink.DrinkSize.Equals(item.DrinkSize)))
+                                                {
+                                                    foundOtherDrink = true;
+                                                    otherDrinkID = drink.DrinkID;
+                                                    break;
+                                                }
+                                            }
+                                            if (foundOtherDrink)
+                                            {
+                                                @Html.ActionLink("Order Again", "OrderDrinkAgain", "Home", new { id = otherDrinkID, amount = item.DrinkAmount }, null)
+                                            }
+                                            else
+                                            {
+                                                @:Not Available
+                                            }
+                                        }
+                                    }
+                                </strong>
+                            </center>
+                        </td>
+                    </tr>
+                    totalGroupPrice += (double)ViewData["drinkPrice" + item.OrderHistoryID] * item.DrinkAmount.GetValueOrDefault();
+                }
+                else if (ViewData["dessertPicturePath" + item.OrderHistoryID] != null)
+                {
+                    <tr itemscope itemtype="http://schema.org/OrderItem">
+                        <td itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
+                            <center><img style="width:80px; height:80px;" src="@ViewData["dessertPicturePath" + item.OrderHistoryID]" alt="@ViewData["dessertName" + item.OrderHistoryID] - @ViewData["dessertSize" + item.OrderHistoryID]" typeof="image/*" /></center>
+                        </td>
+                        <td style="font-size:14px;" itemprop="name">
+                            <br />
+                            <center><strong>@ViewData["dessertName" + item.OrderHistoryID]</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong>@ViewData["dessertSize" + item.OrderHistoryID]</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong> @String.Format("{0:0.00}", ViewData["dessertPrice" + item.OrderHistoryID]) BGN</strong></center>
+                        </td>
+                        <td style="font-size:14px;" itemprop="orderQuantity">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong> @item.DessertAmount</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong> @String.Format("{0:0.00}", (double)ViewData["dessertPrice" + item.OrderHistoryID] * item.DessertAmount.GetValueOrDefault()) BGN</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center>
+                                <strong>
+                                    @using PizzaYanna.Models;
+                                    @if (System.IO.File.Exists(@"" + Server.MapPath(item.DessertPicturePath)))
+                                    {
+                                        @Html.ActionLink("Order Again", "OrderDessertAgain", "Home", new { id = item.DessertID, amount = item.DessertAmount }, null)
+                                    }
+                                    else
+                                    {
+                                        using (DBEntities de = new DBEntities())
+                                        {
+                                            bool foundOtherDessert = false;
+                                            int otherDessertID = 0;
+                                            foreach (var dessert in de.Desserts)
+                                            {
+                                                if (dessert.DessertName.Equals(item.DessertName) && (dessert.DessertSize.Equals(item.DessertSize)))
+                                                {
+                                                    foundOtherDessert = true;
+                                                    otherDessertID = dessert.DessertID;
+                                                    break;
+                                                }
+                                            }
+                                            if (foundOtherDessert)
+                                            {
+                                                @Html.ActionLink("Order Again", "OrderDessertAgain", "Home", new { id = otherDessertID, amount = item.DessertAmount }, null)
+                                            }
+                                            else
+                                            {
+                                                @:Not Available
+                                            }
+                                        }
+                                    }
+                                </strong>
+                            </center>
+                        </td>
+                    </tr>
+                    totalGroupPrice += (double)ViewData["dessertPrice" + item.OrderHistoryID] * item.DessertAmount.GetValueOrDefault();
+                }
+            }
+        </tbody>
+    </table>
+    <center><strong>Order Price: @String.Format("{0:0.00}", totalGroupPrice) BGN</strong></center>
+    <br />
+}
+
+<div style="text-align:center;">
+    <input type="button" value="My Profile" class="btn btn-default" onclick="location.href='@Url.Action("ViewMyProfile", "User")';" />
+</div>

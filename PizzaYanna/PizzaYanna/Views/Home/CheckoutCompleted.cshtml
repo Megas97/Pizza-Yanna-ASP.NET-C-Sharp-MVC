@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Checkout Completed";
+}
+
+@section head
+{
+    <meta name="description" content="Your orders are on their way.">
+    <meta name="keywords" content="checkout, completed, check out, pay order, order completed">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://www.pizza-yanna.somee.com/checkout/completed">
+    <meta property="og:title" content="Checkout Completed">
+    <meta property="og:image" content="http://www.pizza-yanna.somee.com/Design/Logo.png">
+    <meta property="og:description" content="Your orders are on their way.">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow" />
+    <meta name="distribution" content="global" />
+}
+
+<h2>Checkout Completed</h2>
+
+<hr />
+<div class="container text-success" style="text-align: center;">
+    @(ViewBag.Message)&nbsp;
+</div>
+
+@if (ViewBag.Message2 != null)
+{
+    <br />
+    <div class="container text-success" style="text-align: center;">
+        @Html.Raw(@ViewBag.Message2)
+    </div>
+}

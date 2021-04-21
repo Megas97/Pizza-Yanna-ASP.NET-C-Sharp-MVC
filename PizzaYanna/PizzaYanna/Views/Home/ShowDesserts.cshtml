@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Desserts";
+}
+
+@section head
+{
+    <meta name="description" content="Choose a dessert.">
+    <meta name="keywords" content="sofia, bulgaria, tasty, cheap, chocolate, cream, icecream, large, small, medium, order, cart, all, menu, lunch, dinner, home, delivery, yanna, pizza yanna">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://www.pizza-yanna.somee.com/desserts">
+    <meta property="og:title" content="All Desserts">
+    <meta property="og:image" content="http://www.pizza-yanna.somee.com/Design/Logo.png">
+    <meta property="og:description" content="Choose a dessert.">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow" />
+    <meta name="distribution" content="global" />
+}
+
+<h2>Desserts</h2>
+
+<hr />
+<div class="container text-success" style="text-align: center;">
+    @(ViewBag.Message)&nbsp;
+</div>
+@{
+    int dessertCount = 0;
+    foreach (var dessert in Model)
+    {
+        if (dessert != null)
+        {
+            dessertCount++;
+        }
+    }
+}
+@if (dessertCount > 0)
+{
+    <br />
+    <div class="container text-success" style="text-align: center;">
+        @(ViewBag.Message2)&nbsp;
+    </div>
+    <hr />
+}
+
+<div class="container">
+    @foreach (var dessert in Model)
+    {
+        <div class="col-sm-6 col-md-4 col-xs-12" itemscope itemtype="http://schema.org/MenuItem">
+            <br />
+            <div style="height: 400px; text-align: center; color: #000000">
+                <strong style="color:#000000; font-size:20px;" itemprop="name">@dessert.DessertName</strong>
+                <br />
+                <img style="width:250px; height:250px;" itemprop="image" itemscope itemtype="http://schema.org/ImageObject" src="@Url.Content(dessert.DessertPicturePath)" alt="@dessert.DessertName - @dessert.DessertSize" typeof="image/*" />
+                <br />
+                <strong>Size: @dessert.DessertSize</strong>
+                <br />
+                <strong>Price: @String.Format("{0:0.00}", dessert.DessertPrice) BGN</strong>
+                <br />
+                <div>
+                    <strong>@Html.ActionLink("Add To Cart", "CreateOrderWithDessert", "Home", new { id = dessert.DessertID }, null)</strong>
+                </div>
+            </div>
+            <br />
+        </div>
+    }
+</div>

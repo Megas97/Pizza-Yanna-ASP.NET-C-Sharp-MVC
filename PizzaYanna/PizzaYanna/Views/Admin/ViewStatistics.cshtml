@@ -1,0 +1,296 @@
+﻿@model PizzaYanna.Models.DateTimePickerAndGroupedOrderHistoryModel
+
+@{
+    ViewBag.Title = "View Statistics";
+}
+
+@section head
+{
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow" />
+    <meta name="distribution" content="global" />
+}
+
+<h2>View Statistics</h2>
+
+<hr />
+<div class="container text-success" style="text-align: center;">
+    @ViewBag.Message&nbsp;
+</div>
+<hr />
+
+<script type="text/javascript">
+    function setChoosersText() {
+        var dateChooserStart = document.getElementById("dateTimePickerModel_DateChooserStart");
+        var dateStartText = document.getElementById("DateChooserStartText");
+        dateStartText.value = dateChooserStart.value.substring(8, 10) + "." + dateChooserStart.value.substring(5, 7) + "." + dateChooserStart.value.substring(0, 4);
+        dateChooserStart.setAttribute("value", dateChooserStart.value);
+        dateStartText.setAttribute("value", dateStartText.value);
+        var startTime = document.getElementById("dateTimePickerModel_TimeChooserStart");
+        startTime.setAttribute("value", startTime.value);
+
+        var dateChooserEnd = document.getElementById("dateTimePickerModel_DateChooserEnd");
+        var dateEndText = document.getElementById("DateChooserEndText");
+        dateEndText.value = dateChooserEnd.value.substring(8, 10) + "." + dateChooserEnd.value.substring(5, 7) + "." + dateChooserEnd.value.substring(0, 4);
+        dateChooserEnd.setAttribute("value", dateChooserEnd.value);
+        dateEndText.setAttribute("value", dateEndText.value);
+        var endTime = document.getElementById("dateTimePickerModel_TimeChooserEnd");
+        endTime.setAttribute("value", endTime.value);
+    }
+</script>
+
+<div class="wrapper">
+    <div class="inner__wrapper2">
+        <div>
+            @using (Html.BeginForm("ViewStatistics", "Admin", FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.dateTimePickerModel.DateChooserStart, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.dateTimePickerModel.DateChooserStart, "{0:yyyy-MM-dd}", new { @type = "date", @max = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10).Substring(6, 4) + "-" + DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10).Substring(3, 2) + "-" + DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10).Substring(0, 2), @class = "form-control", @onchange = "setChoosersText();", @Value = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10).Substring(6, 4) + "-" + DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10).Substring(3, 2) + "-" + DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10).Substring(0, 2) })
+                        @Html.TextBox("DateChooserStartText", null, new { @class = "form-control", @style = "margin-left: 16px; width: 234px; position: absolute; top: 0px; left: 0px;", @readonly = "readonly", @Value = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10) })
+                    </div>
+                    <br /><br />
+                    @Html.LabelFor(model => model.dateTimePickerModel.TimeChooserStart, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.dateTimePickerModel.TimeChooserStart, "{0:HH:mm}", new { @type = "time", @class = "form-control", @onchange = "setChoosersText();", @Value = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(11, 5) })
+                    </div>
+                    <br /><br />
+                    @Html.LabelFor(model => model.dateTimePickerModel.DateChooserEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.dateTimePickerModel.DateChooserEnd, "{0:yyyy-MM-dd}", new { @type = "date", @max = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10).Substring(6, 4) + "-" + DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10).Substring(3, 2) + "-" + DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10).Substring(0, 2), @class = "form-control", @onchange = "setChoosersText();", @Value = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10).Substring(6, 4) + "-" + DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10).Substring(3, 2) + "-" + DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10).Substring(0, 2) })
+                        @Html.TextBox("DateChooserEndText", null, new { @class = "form-control", @style = "margin-left: 16px; width: 234px; position: absolute; top: 0px; left: 0px;", @readonly = "readonly", @Value = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10) })
+                    </div>
+                    <br /><br />
+                    @Html.LabelFor(model => model.dateTimePickerModel.TimeChooserEnd, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.TextBoxFor(model => model.dateTimePickerModel.TimeChooserEnd, "{0:HH:mm}", new { @type = "time", @class = "form-control", @onchange = "setChoosersText();", @Value = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(11, 5) })
+                    </div>
+                    <br /><br />
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="View Statistics" class="btn btn-success" />
+                            <input type="button" value="View Addresses" class="btn btn-default" onclick="location.href='@Url.Action("ViewAddresses", "Admin")';" />
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="inner__wrapper3">
+        <div style="display: table; text-align: center;">
+            <p><pre style="display: table-cell; vertical-align: middle; overflow: hidden; border: 0; background-color: transparent; white-space: pre-wrap; word-break: break-word;">To view all order statistics for a given day select the same start and end date as well as the same start and end time.</pre></p>
+        </div>
+    </div>
+</div>
+
+@if (ViewBag.OrdersDateText != null)
+{
+    <hr />
+}
+<p style="font-size: 30px; text-align: center; ">@ViewBag.OrdersDateText</p>
+
+<div class="container text-success" style="text-align: center;">
+    @if (ViewBag.TotalPizzas != null && ViewBag.TotalDrinks != null && ViewBag.TotalDesserts != null && ViewBag.TotalIncome != null)
+    {
+        <br />
+        if (ViewBag.TotalPizzas == "0")
+        {
+            @:Total pizzas sold: @ViewBag.TotalPizzas
+        }
+        else
+        {
+            @Html.ActionLink("Total pizzas sold: " + (string)ViewBag.TotalPizzas, "ViewTotalPizzasSold", "Admin", new { startDate = ViewBag.StartDate, startTime = ViewBag.StartTime, endDate = ViewBag.EndDate, endTime = ViewBag.EndTime }, null)
+        }
+        <br />
+        if (ViewBag.TotalDrinks == "0")
+        {
+            @:Total drinks sold: @ViewBag.TotalDrinks
+        }
+        else
+        {
+            @Html.ActionLink("Total drinks sold: " + (string)ViewBag.TotalDrinks, "ViewTotalDrinksSold", "Admin", new { startDate = ViewBag.StartDate, startTime = ViewBag.StartTime, endDate = ViewBag.EndDate, endTime = ViewBag.EndTime }, null)
+        }
+        <br />
+        if (ViewBag.TotalDesserts == "0")
+        {
+            @:Total desserts sold: @ViewBag.TotalDesserts
+        }
+        else
+        {
+            @Html.ActionLink("Total desserts sold: " + (string)ViewBag.TotalDesserts, "ViewTotalDessertsSold", "Admin", new { startDate = ViewBag.StartDate, startTime = ViewBag.StartTime, endDate = ViewBag.EndDate, endTime = ViewBag.EndTime }, null)
+        }
+        <br />
+        @ViewBag.TotalIncome
+        <br />
+    }
+</div>
+
+@foreach (var group in Model.groupedOrderHistoryModel.groupedOrderHistoryList)
+{
+    double totalGroupPrice = 0.0;
+    <hr />
+    <br />
+    if (ViewBag.EndDate == null)
+    {
+        <p style="font-size: 30px; text-align: center; ">@group.Key.Substring(11, 8)</p>
+    }
+    else
+    {
+        <p style="font-size: 30px; text-align: center; ">@group.Key.Substring(0, 10) (@DateTime.Parse(group.Key.Substring(0, 10)).DayOfWeek.ToString()) @group.Key.Substring(11, 8)</p>
+    }
+    <br />
+    <hr />
+    <table class="table" id="viewStatisticsTable">
+        <thead>
+            <tr>
+                <th style="font-size:16px;">
+                    <center></center>
+                </th>
+                <th style="font-size:16px;">
+                    <center>User ID</center>
+                </th>
+                <th style="font-size:16px;">
+                    <center>Item Name</center>
+                </th>
+                <th style="font-size:16px;">
+                    <center>Item Size</center>
+                </th>
+                <th style="font-size:16px;">
+                    <center>Single Price</center>
+                </th>
+                <th style="font-size:16px;">
+                    <center>Item Quantity</center>
+                </th>
+                <th style="font-size:16px;">
+                    <center>Total Price</center>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in group)
+            {
+                if (ViewData["pizzaPicturePath" + item.OrderHistoryID] != null)
+                {
+                    <tr itemscope itemtype="http://schema.org/OrderItem">
+                        <td itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
+                            <center><img style="width:80px; height:80px;" src="@ViewData["pizzaPicturePath" + item.OrderHistoryID]" alt="@ViewData["pizzaName" + item.OrderHistoryID] - @ViewData["pizzaSize" + item.OrderHistoryID]" typeof="image/*" /></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong>@item.UserID</strong></center>
+                        </td>
+                        <td style="font-size:14px;" itemprop="name">
+                            <br />
+                            <center><strong>@ViewData["pizzaName" + item.OrderHistoryID]</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong>@ViewData["pizzaSize" + item.OrderHistoryID]</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong> @String.Format("{0:0.00}", ViewData["pizzaPrice" + item.OrderHistoryID]) BGN</strong></center>
+                        </td>
+                        <td style="font-size:14px;" itemprop="orderQuantity">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong> @item.PizzaAmount</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center>
+                                <strong>@String.Format("{0:0.00}", (double)ViewData["pizzaPrice" + item.OrderHistoryID] * item.PizzaAmount.GetValueOrDefault()) BGN</strong>
+                            </center>
+                        </td>
+                    </tr>
+                    totalGroupPrice += (double)ViewData["pizzaPrice" + item.OrderHistoryID] * item.PizzaAmount.GetValueOrDefault();
+                }
+                else if (ViewData["drinkPicturePath" + item.OrderHistoryID] != null)
+                {
+                    <tr itemscope itemtype="http://schema.org/OrderItem">
+                        <td itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
+                            @if (ViewData["drinkPicturePath" + item.OrderHistoryID].Equals("/Design/Unavailable.png"))
+                            {
+                                <center><img style="width:80px; height:80px;" src="@ViewData["drinkPicturePath" + item.OrderHistoryID]" alt="@ViewData["drinkName" + item.OrderHistoryID] - @ViewData["drinkSize" + item.OrderHistoryID]" typeof="image/*" /></center>
+                            }
+                            else
+                            {
+                                <center><img style="width:20px; height:80px;" src="@ViewData["drinkPicturePath" + item.OrderHistoryID]" alt="@ViewData["drinkName" + item.OrderHistoryID] - @ViewData["drinkSize" + item.OrderHistoryID]" typeof="image/*" /></center>
+                            }
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong>@item.UserID</strong></center>
+                        </td>
+                        <td style="font-size:14px;" itemprop="name">
+                            <br />
+                            <center><strong>@ViewData["drinkName" + item.OrderHistoryID]</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong>@ViewData["drinkSize" + item.OrderHistoryID]</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong> @String.Format("{0:0.00}", ViewData["drinkPrice" + item.OrderHistoryID]) BGN</strong></center>
+                        </td>
+                        <td style="font-size:14px;" itemprop="orderQuantity">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong> @item.DrinkAmount</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center>
+                                <strong>@String.Format("{0:0.00}", (double)ViewData["drinkPrice" + item.OrderHistoryID] * item.DrinkAmount.GetValueOrDefault()) BGN</strong>
+                            </center>
+                        </td>
+                    </tr>
+                    totalGroupPrice += (double)ViewData["drinkPrice" + item.OrderHistoryID] * item.DrinkAmount.GetValueOrDefault();
+                }
+                else if (ViewData["dessertPicturePath" + item.OrderHistoryID] != null)
+                {
+                    <tr itemscope itemtype="http://schema.org/OrderItem">
+                        <td itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
+                            <center><img style="width:80px; height:80px;" src="@ViewData["dessertPicturePath" + item.OrderHistoryID]" alt="@ViewData["dessertName" + item.OrderHistoryID] - @ViewData["dessertSize" + item.OrderHistoryID]" typeof="image/*" /></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong>@item.UserID</strong></center>
+                        </td>
+                        <td style="font-size:14px;" itemprop="name">
+                            <br />
+                            <center><strong>@ViewData["dessertName" + item.OrderHistoryID]</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong>@ViewData["dessertSize" + item.OrderHistoryID]</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong> @String.Format("{0:0.00}", ViewData["dessertPrice" + item.OrderHistoryID]) BGN</strong></center>
+                        </td>
+                        <td style="font-size:14px;" itemprop="orderQuantity">
+                            <br class="desktopOnlyTableNewline" />
+                            <center><strong> @item.DessertAmount</strong></center>
+                        </td>
+                        <td style="font-size:14px;">
+                            <br class="desktopOnlyTableNewline" />
+                            <center>
+                                <strong>@String.Format("{0:0.00}", (double)ViewData["dessertPrice" + item.OrderHistoryID] * item.DessertAmount.GetValueOrDefault()) BGN</strong>
+                            </center>
+                        </td>
+                    </tr>
+                    totalGroupPrice += (double)ViewData["dessertPrice" + item.OrderHistoryID] * item.DessertAmount.GetValueOrDefault();
+                }
+            }
+        </tbody>
+    </table>
+    <center><strong>Order Income: @String.Format("{0:0.00}", totalGroupPrice) BGN</strong></center>
+    <br />
+}
+
+<div style="text-align:center;">
+    <input type="button" value="Admin Panel" class="btn btn-default" onclick="location.href='@Url.Action("AdminPanel", "Admin")';" />
+</div>

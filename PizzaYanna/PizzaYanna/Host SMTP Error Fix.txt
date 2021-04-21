@@ -1,0 +1,8 @@
+* Turn off custom errors in Web.config first!
+
+"The SMTP server requires a secure connection or the client was not authenticated. The server response was: 5.5.1 Authentication Required"
+
+https://stackoverflow.com/questions/20906077/gmail-error-the-smtp-server-requires-a-secure-connection-or-the-client-was-not
+
+solution 3 for case 3: You have to enable login from other timezone / ip for your google account.
+to do this follow the link https://g.co/allowaccess and allow access by clicking the continue button.

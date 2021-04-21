@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Delete Dessert";
+}
+
+@section head
+{
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow" />
+    <meta name="distribution" content="global" />
+}
+
+<h2>Delete Dessert</h2>
+
+<center>
+    @using (Html.BeginForm("DeleteDessert", "Admin", FormMethod.Post))
+    {
+        <hr />
+        <div class="form-group">
+            <div class="text-success">
+                @(ViewBag.Message)&nbsp;
+            </div>
+        </div>
+        <hr />
+        <div class="form-horizontal" itemscope itemtype="http://schema.org/ItemList">
+            <label>Choose a dessert to delete!</label>
+            <br />
+            @using PizzaYanna.Models;
+            @{
+                List<SelectListItem> dessertsList = new List<SelectListItem>();
+                using (DBEntities de = new DBEntities())
+                {
+                    foreach (Dessert dessert in de.Desserts.OrderBy(a => a.DessertName))
+                    {
+                        dessertsList.Add(new SelectListItem
+                        {
+                            Text = dessert.DessertName + " - " + dessert.DessertSize + " - " + String.Format("{0:0.00}", dessert.DessertPrice) + " BGN",
+                            Value = dessert.DessertName + " - " + dessert.DessertSize
+                        });
+                    }
+                    @Html.DropDownList("DessertsList", dessertsList, "-- Select Dessert --", new { @class = "form-control", @required = "required" })
+                }
+            }
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Delete Dessert" class="btn btn-success" />
+            </div>
+        </div>
+    }
+</center>

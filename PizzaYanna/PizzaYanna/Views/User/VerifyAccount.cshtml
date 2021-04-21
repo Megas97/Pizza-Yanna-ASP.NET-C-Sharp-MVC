@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Verify Account";
+}
+
+@section head
+{
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow" />
+    <meta name="distribution" content="global" />
+}
+
+<h2>Verify Account</h2>
+
+@if (ViewBag.Status != null && Convert.ToBoolean(ViewBag.Status))
+{
+    <hr />
+    <div class="alert alert-success">
+        <strong>Success! </strong>Your account has been verified successfully. Click <u>@Html.ActionLink("here", "Login", "User")</u> to login.
+    </div>
+}
+else
+{
+    <div class="alert alert-danger">
+        <strong>Error! </strong>@ViewBag.Message
+    </div>
+}
+
+@section Scripts{
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}

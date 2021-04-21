@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<mvcSiteMap xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0" xsi:schemaLocation="http://mvcsitemap.codeplex.com/schemas/MvcSiteMap-File-4.0 MvcSiteMapSchema.xsd">
+	<mvcSiteMapNode title="Home" controller="Home" action="Index">
+		<mvcSiteMapNode title="Promotions" controller="Home" action="Promotions"/>
+		<mvcSiteMapNode title="Pizzas" controller="Home" action="ShowPizzas">
+			<mvcSiteMapNode title="Custom Pizza" controller="Home" action="CreateCustomPizza" preservedRouteParameters="id"/>
+		</mvcSiteMapNode>
+		<mvcSiteMapNode title="Drinks" controller="Home" action="ShowDrinks"/>
+		<mvcSiteMapNode title="Desserts" controller="Home" action="ShowDesserts"/>
+		<mvcSiteMapNode title="My Profile" controller="User" action="ViewMyProfile">
+			<mvcSiteMapNode title="Edit Profile" controller="User" action="EditProfile"/>
+			<mvcSiteMapNode title="Order History" controller="Home" action="OrderHistory"/>
+		</mvcSiteMapNode>
+		<mvcSiteMapNode title="About" controller="Home" action="About"/>
+		<mvcSiteMapNode title="Contacts" controller="Home" action="Contacts"/>
+		<mvcSiteMapNode title="Terms &amp; Conditions" controller="Home" action="TermsAndConditions"/>
+		<mvcSiteMapNode title="Not Found" controller="Home" action="NotFound"/>
+		<mvcSiteMapNode title="Access Denied" controller="Admin" action="AccessDenied"/>
+		<mvcSiteMapNode title="Admin Panel" controller="Admin" action="AdminPanel">
+			<mvcSiteMapNode title="Upload Ingredient" controller="Admin" action="UploadIngredient"/>
+			<mvcSiteMapNode title="Upload Recipe" controller="Admin" action="UploadRecipe"/>
+			<mvcSiteMapNode title="Upload Pizza" controller="Admin" action="UploadPizza"/>
+			<mvcSiteMapNode title="Upload Drink" controller="Admin" action="UploadDrink"/>
+			<mvcSiteMapNode title="Upload Dessert" controller="Admin" action="UploadDessert"/>
+			<mvcSiteMapNode title="Manage Users" controller="Admin" action="ManageUsers">
+				<mvcSiteMapNode title="User Order History" controller="Admin" action="UserOrderHistory" preservedRouteParameters="id"/>
+			</mvcSiteMapNode>
+			<mvcSiteMapNode title="View Statistics" controller="Admin" action="ViewStatistics">
+				<mvcSiteMapNode title="View Addresses" controller="Admin" action="ViewAddresses"/>
+				<mvcSiteMapNode title="Total Pizzas Sold" controller="Admin" action="ViewTotalPizzasSold"/>
+				<mvcSiteMapNode title="Total Drinks Sold" controller="Admin" action="ViewTotalDrinksSold"/>
+				<mvcSiteMapNode title="Total Desserts Sold" controller="Admin" action="ViewTotalDessertsSold"/>
+			</mvcSiteMapNode>
+			<mvcSiteMapNode title="Manage Promotions" controller="Admin" action="ManagePromotions"/>
+			<mvcSiteMapNode title="Delete Ingredient" controller="Admin" action="DeleteIngredient"/>
+			<mvcSiteMapNode title="Delete Recipe" controller="Admin" action="DeleteRecipe"/>
+			<mvcSiteMapNode title="Delete Pizza" controller="Admin" action="DeletePizza"/>
+			<mvcSiteMapNode title="Delete Drink" controller="Admin" action="DeleteDrink"/>
+			<mvcSiteMapNode title="Delete Dessert" controller="Admin" action="DeleteDessert"/>
+		</mvcSiteMapNode>
+		<mvcSiteMapNode title="Register" controller="User" action="Register" preservedRouteParameters="id"/>
+		<mvcSiteMapNode title="Login" controller="User" action="Login" preservedRouteParameters="id"/>
+		<mvcSiteMapNode title="Forgot Password" controller="User" action="ForgotPassword" preservedRouteParameters="id"/>
+		<mvcSiteMapNode title="Reset Password" controller="User" action="ResetPassword" preservedRouteParameters="id"/>
+		<mvcSiteMapNode title="Verify Account" controller="User" action="VerifyAccount" preservedRouteParameters="id"/>
+		<mvcSiteMapNode title="Checkout" controller="Home" action="Checkout">
+			<mvcSiteMapNode title="View Pizza Order" controller="Home" action="ViewPizzaOrder" preservedRouteParameters="id"/>
+			<mvcSiteMapNode title="View Drink Order" controller="Home" action="ViewDrinkOrder" preservedRouteParameters="id"/>
+			<mvcSiteMapNode title="View Dessert Order" controller="Home" action="ViewDessertOrder" preservedRouteParameters="id"/>
+			<mvcSiteMapNode title="Checkout Completed" controller="Home" action="CheckoutCompleted"/>
+		</mvcSiteMapNode>
+	</mvcSiteMapNode>
+</mvcSiteMap>

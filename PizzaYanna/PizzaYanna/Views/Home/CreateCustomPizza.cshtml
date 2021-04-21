@@ -1,0 +1,96 @@
+﻿@model PizzaYanna.Models.Pizza
+
+@{
+    ViewBag.Title = "Create Custom Pizza";
+}
+
+@section head
+{
+    <meta name="description" content="Create your very own pizza - add or remove whatever you like.">
+    <meta name="keywords" content="customize, custom pizza, custom, custom order, do it yourself, make yourself, order custom pizza,
+	select ingredients, choose size, select size, choose ingredients">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Create Custom Pizza">
+    <meta property="og:image" content="http://www.pizza-yanna.somee.com/Design/Logo.png">
+    <meta property="og:description" content="Create your very own pizza - add or remove whatever you like.">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow" />
+    <meta name="distribution" content="global" />
+}
+
+<h2>Create Custom Pizza</h2>
+
+<hr />
+<div class="container text-success" style="text-align: center;">
+    @(ViewBag.Message)&nbsp;
+</div>
+<br />
+
+@using (Html.BeginForm("CreateOrderWithCustomPizza", "Home", new { id = Model.PizzaID, openedFrom = ViewBag.OpenedFrom }, FormMethod.Post))
+{
+    <div class="container" itemscope itemtype="http://schema.org/MenuItem">
+        <center>
+            <b style="color:#000000; font-size:20px;" itemprop="name">@Model.PizzaName</b>
+            <b>
+                <br />
+                <img style="width:250px; height:250px;" itemprop="image" itemscope itemtype="http://schema.org/ImageObject" src="@Url.Content(Model.PizzaPicturePath)" alt="@Model.PizzaName - @Model.PizzaSize" typeof="image/*" />
+                <br />
+                @using PizzaYanna.Models;
+                @using (DBEntities de = new DBEntities())
+                {
+                    var pizza = de.Pizzas.Where(a => a.PizzaID == Model.PizzaID).FirstOrDefault();
+                    var recipe = de.Recipes.Where(a => a.RecipeID == pizza.RecipeID).FirstOrDefault();
+                    var recipeIngredients = recipe.RecipesIngredients;
+                    @:<span style="display: grid; align-items: center;">Base ingredients:</span>
+                    foreach (var ingr in recipeIngredients.OrderBy(a => a.Ingredient.IngredientName))
+                    {
+                        <span style="border: 1px solid black; display: inline-block; margin-bottom: 8px; text-align: center;">
+                            &nbsp;@ingr.Ingredient.IngredientName @Html.CheckBox(ingr.Ingredient.IngredientName, true)&nbsp;
+                        </span>@:&nbsp;
+                        ViewData["has" + ingr.Ingredient.IngredientName] = ingr.Ingredient.IngredientName;
+                    }
+                    <br /><br />
+                    @:<span style="display: grid; align-items: center;">Other ingredients:</span>
+                    foreach (var ingredient in de.Ingredients.OrderBy(a => a.IngredientName))
+                    {
+                        if (ViewData["has" + ingredient.IngredientName] == null)
+                        {
+                            <span style="border: 1px solid black; display: inline-block; margin-bottom: 8px; text-align: center;">
+                                &nbsp;@ingredient.IngredientName @Html.CheckBox(ingredient.IngredientName, false)&nbsp;
+                            </span>@:&nbsp;
+                        }
+                    }
+                    <br /><br />
+                    List<SelectListItem> customPizzaSizesList = new List<SelectListItem>();
+                    customPizzaSizesList.Add(new SelectListItem
+                    {
+                        Text = "Small (450g)",
+                        Value = "Small (450g)"
+                    });
+                    customPizzaSizesList.Add(new SelectListItem
+                    {
+                        Text = "Medium (700g)",
+                        Value = "Medium (700g)"
+                    });
+                    customPizzaSizesList.Add(new SelectListItem
+                    {
+                        Text = "Large (950g)",
+                        Value = "Large (950g)"
+                    });
+                    @Html.DropDownList("CustomPizzaSizesList", customPizzaSizesList, "-- Select Size --", new { @class = "form-control", @required = "required" })
+                    <br />
+                }
+                <input type="submit" value="Add To Cart" class="btn btn-success" />
+                <br /><br />
+                @if (ViewBag.OpenedFrom == "MainMenu")
+                {
+                    <input type="button" value="Back To Menu" class="btn btn-default" onclick="location.href = '@Url.Action("ShowPizzas", "Home")';" />
+                }
+                else if (ViewBag.OpenedFrom == "OrderHistory")
+                {
+                    <input type="button" value="Back To Order History" class="btn btn-default" onclick="location.href = '@Url.Action("OrderHistory", "Home")';" />
+                }
+            </b>
+        </center>
+    </div>
+}

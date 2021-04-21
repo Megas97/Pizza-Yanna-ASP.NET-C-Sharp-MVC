@@ -1,0 +1,416 @@
+﻿@model PizzaYanna.Models.PromoCodesModel
+
+@{
+    ViewBag.Title = "Manage Promotions";
+}
+
+@section head
+{
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="googlebot" content="noindex, nofollow" />
+    <meta name="distribution" content="global" />
+}
+
+<h2>Manage Promotions</h2>
+
+<script type="text/javascript">
+    function setChoosersText() {
+        var promoDeadline = document.getElementById("PromoDeadline");
+        var promoDeadlineText = document.getElementById("PromoDeadlineText");
+        promoDeadlineText.value = promoDeadline.value.substring(8, 10) + "." + promoDeadline.value.substring(5, 7) + "." + promoDeadline.value.substring(0, 4);
+        promoDeadline.setAttribute("value", promoDeadline.value);
+        promoDeadlineText.setAttribute("value", promoDeadlineText.value);
+    }
+
+    function insertTags(tag) {
+        var textArea = document.getElementById("promoTextInput");
+        var errorMsg = document.getElementById("errorMessage");
+
+        // Define the selected text
+        var start = textArea.selectionStart;
+        var finish = textArea.selectionEnd;
+        if (start >= finish) {
+            errorMsg.innerHTML = "Please select part of the text!";
+            return;
+        }
+        var selectedText = textArea.value.substring(start, finish);
+        var firstTextPart = textArea.value.substring(0, start);
+        var lastTextPart = textArea.value.substring(finish, textArea.value.length);
+
+        // Putting the desired tag
+        var formattedText = "";
+        var tags = new Array("strong", "em", "u", "sup", "sub");
+        if (tags.includes(tag)) {
+            formattedText = "<" + tag + ">" + selectedText + "</" + tag + ">";
+        } else if (tag == "link") {
+            var linkInputElement = document.getElementById("linkInput");
+            var linkInputFieldValue = linkInputElement.value;
+
+            // Autocorrection and check for validity of the link
+            if (linkInputFieldValue == "") {
+                errorMsg.innerHTML = "Please input a web address!";
+                return;
+            }
+            if (validateWEBaddress(linkInputFieldValue) == false) {
+                errorMsg.innerHTML = "Invalid web address!";
+                return;
+            }
+            linkInputFieldValue = validateWEBaddress(linkInputFieldValue);
+            formattedText = '<a href="' + linkInputFieldValue + '" target="_blank">' + selectedText + '</a>';
+        }
+        var newTextValue = firstTextPart + formattedText + lastTextPart;
+
+        // Check if HTML is valid
+        // https://stackoverflow.com/questions/10026626/check-if-html-snippet-is-valid-with-javascript
+        if (checkHTML(newTextValue)) {
+            textArea.value = newTextValue;
+            errorMsg.innerHTML = "&nbsp;";
+        } else {
+            errorMsg.innerHTML = "Invalid selection!";
+        }
+    }
+
+    function checkHTML(html) {
+        var doc = document.createElement("div");
+        doc.innerHTML = html;
+        return (doc.innerHTML === html);
+    }
+
+    function removeTags() {
+        var textArea = document.getElementById("promoTextInput");
+        var errorMsg = document.getElementById("errorMessage");
+
+        // Remove all tags from text
+        var text = textArea.value;
+        var tmp = document.createElement("div");
+        tmp.innerHTML = text;
+        textArea.value = tmp.textContent || tmp.innerText || "";
+
+        errorMsg.innerHTML = "&nbsp;";
+    }
+
+    function validateWEBaddress(w) {
+	    var fixedLink = w.trim();
+        var returnValue;
+
+	    // Automatic correction
+        if (!fixedLink.startsWith("http://") && !fixedLink.startsWith("https://")) {
+            fixedLink = "http://" + fixedLink;
+        }
+        returnValue = encodeURI(fixedLink);
+
+	    // Check
+        // Use 'at' symbol in MVC Razor page: https://stackoverflow.com/questions/56520980/how-to-use-symbol-in-jquery-in-mvc
+	    var webPattern = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:\/?#[\]@('@')!\$&'\(\)\*\+,;=.]+$/;
+	    var diff = fixedLink.replace(webPattern, "");
+        if (diff != "" && diff != undefined) {
+            returnValue = false;
+        }
+	    return returnValue;
+    }
+
+    function resetErrorMessage() {
+        document.getElementById("errorMessage").innerHTML = "&nbsp;";
+    }
+</script>
+
+<center>
+    @using (Html.BeginForm("UploadPromoCode", "Admin", FormMethod.Post))
+    {
+        <hr />
+        <div class="form-group">
+            <div class="text-success">
+                @(ViewBag.Message)&nbsp;
+            </div>
+        </div>
+        <div class="form-horizontal" itemscope itemtype="http://schema.org/ItemList">
+            <label>Choose a product for which to add a promotion!</label>
+            <br />
+            @using PizzaYanna.Models;
+            @{
+                List<SelectListItem> productsList = new List<SelectListItem>();
+
+                int pizzas = 0;
+                int drinks = 0;
+                int desserts = 0;
+                foreach (var product in Model.allProducts)
+                {
+                    if (product.GetType().GetProperty("PizzaID") != null)
+                    {
+                        pizzas++;
+                    }
+                    else if (product.GetType().GetProperty("DrinkID") != null)
+                    {
+                        drinks++;
+                    }
+                    else if (product.GetType().GetProperty("DessertID") != null)
+                    {
+                        desserts++;
+                    }
+                }
+
+                if (pizzas > 0)
+                {
+                    productsList.Add(new SelectListItem
+                    {
+                        Text = "Pizzas:",
+                        Value = "Pizzas",
+                        Disabled = true
+                    });
+                    foreach (var product in Model.allProducts)
+                    {
+                        if (product.GetType().GetProperty("PizzaID") != null)
+                        {
+                            productsList.Add(new SelectListItem
+                            {
+                                Text = ((Pizza)product).PizzaName + " - " + ((Pizza)product).PizzaSize + " - " + String.Format("{0:0.00}", ((Pizza)product).PizzaPrice) + " BGN",
+                                Value = "Pizza - " + ((Pizza)product).PizzaName + " - " + ((Pizza)product).PizzaSize
+                            });
+                        }
+                    }
+                    if (drinks > 0 || desserts > 0)
+                    {
+                        productsList.Add(new SelectListItem
+                        {
+                            Text = "",
+                            Value = "",
+                            Disabled = true
+                        });
+                    }
+                }
+
+                if (drinks > 0)
+                {
+                    productsList.Add(new SelectListItem
+                    {
+                        Text = "Drinks:",
+                        Value = "",
+                        Disabled = true
+                    });
+                    foreach (var product in Model.allProducts)
+                    {
+                        if (product.GetType().GetProperty("DrinkID") != null)
+                        {
+                            productsList.Add(new SelectListItem
+                            {
+                                Text = ((Drink)product).DrinkName + " - " + ((Drink)product).DrinkSize + " - " + String.Format("{0:0.00}", ((Drink)product).DrinkPrice) + " BGN",
+                                Value = "Drink - " + ((Drink)product).DrinkName + " - " + ((Drink)product).DrinkSize
+                            });
+                        }
+                    }
+                    if (desserts > 0)
+                    {
+                        productsList.Add(new SelectListItem
+                        {
+                            Text = "",
+                            Value = "",
+                            Disabled = true
+                        });
+                    }
+                }
+
+                if (desserts > 0)
+                {
+                    productsList.Add(new SelectListItem
+                    {
+                        Text = "Desserts:",
+                        Value = "",
+                        Disabled = true
+                    });
+                    foreach (var product in Model.allProducts)
+                    {
+                        if (product.GetType().GetProperty("DessertID") != null)
+                        {
+                            productsList.Add(new SelectListItem
+                            {
+                                Text = ((Dessert)product).DessertName + " - " + ((Dessert)product).DessertSize + " - " + String.Format("{0:0.00}", ((Dessert)product).DessertPrice) + " BGN",
+                                Value = "Dessert - " + ((Dessert)product).DessertName + " - " + ((Dessert)product).DessertSize
+                            });
+                        }
+                    }
+                }
+                @Html.DropDownList("ProductsList", productsList, "-- Select Product --", new { @class = "form-control", @required = "required" })
+            }
+            <br />
+            <label>Enter promo codes quantity!</label>
+            @Html.TextBox("PromoCodesQuantity", null, new { @class = "form-control", @type = "number", @min = 1, @max = 1000, @required = "required", @pattern = "^[0-9]+$" })
+            <br />
+            <label>Enter promo percent!</label>
+            @Html.TextBox("PromoPercentInput", null, new { @class = "form-control", @type = "number", @min = 0.1, @max = 100, @step = 0.1, @required = "required", @pattern = "^(([0-9]{1,2})(,([0-9]{1,2}))?)$" })
+            <br />
+            <label>Enter promo deadline!</label>
+            <!-- https://css-tricks.com/how-to-stack-elements-in-css/ -->
+            <!-- https://stackoverflow.com/questions/19864424/css-responsive-absolute-position-between-elements/19864714 -->
+            <div style="position: relative; width: 300px;">
+                @Html.TextBox("PromoDeadline", "{0:yyyy-MM-dd}", new { @type = "date", @min = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10).Substring(6, 4) + "-" + DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10).Substring(3, 2) + "-" + DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10).Substring(0, 2), @class = "form-control", @onchange = "setChoosersText();", @Value = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10).Substring(6, 4) + "-" + DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10).Substring(3, 2) + "-" + DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10).Substring(0, 2) })
+                @Html.TextBox("PromoDeadlineText", null, new { @class = "form-control", @style = "margin-left: 10px; width: 234px; position: absolute; top: 0px; left: 0px;", @readonly = "readonly", @Value = DateTime.Now.ToString("dd.MM.yyyy HH:mm:ss").Substring(0, 10) })
+            </div>
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Upload Promo" class="btn btn-success" />
+            </div>
+        </div>
+    }
+
+    @using (Html.BeginForm("DeletePromoCode", "Admin", FormMethod.Post))
+    {
+        <hr />
+        <div class="form-group">
+            <div class="text-success">
+                @(ViewBag.Message2)&nbsp;
+            </div>
+        </div>
+        <div class="form-horizontal" itemscope itemtype="http://schema.org/ItemList">
+            <label>Choose a promotion which to delete!</label>
+            <br />
+            @using PizzaYanna.Models;
+            @{
+                List<SelectListItem> promosList = new List<SelectListItem>();
+
+                int pizzas = 0;
+                int drinks = 0;
+                int desserts = 0;
+                foreach (var promo in Model.allPromos)
+                {
+                    if (promo.ItemType.Equals("Pizza"))
+                    {
+                        pizzas++;
+                    }
+                    else if (promo.ItemType.Equals("Drink"))
+                    {
+                        drinks++;
+                    }
+                    else if (promo.ItemType.Equals("Dessert"))
+                    {
+                        desserts++;
+                    }
+                }
+
+                if (pizzas > 0)
+                {
+                    promosList.Add(new SelectListItem
+                    {
+                        Text = "Pizzas:",
+                        Value = "Pizzas:",
+                        Disabled = true
+                    });
+                    foreach (var promo in Model.allPromos)
+                    {
+                        if (promo.ItemType.Equals("Pizza"))
+                        {
+                            promosList.Add(new SelectListItem
+                            {
+                                Text = promo.PromoCode + " - " + promo.PromoPercent + "% - " + promo.ItemName + " - " + promo.ItemSize + " - " + promo.ItemDeadline,
+                                Value = promo.PromoCode + " - " + promo.PromoPercent + "% - " + promo.ItemName + " - " + promo.ItemSize + " - " + promo.ItemDeadline
+                            });
+                        }
+                    }
+                    if (drinks > 0 || desserts > 0)
+                    {
+                        promosList.Add(new SelectListItem
+                        {
+                            Text = "",
+                            Value = "",
+                            Disabled = true
+                        });
+                    }
+                }
+
+                if (drinks > 0)
+                {
+                    promosList.Add(new SelectListItem
+                    {
+                        Text = "Drinks:",
+                        Value = "Drinks:",
+                        Disabled = true
+                    });
+                    foreach (var promo in Model.allPromos)
+                    {
+                        if (promo.ItemType.Equals("Drink"))
+                        {
+                            promosList.Add(new SelectListItem
+                            {
+                                Text = promo.PromoCode + " - " + promo.PromoPercent + "% - " + promo.ItemName + " - " + promo.ItemSize + " - " + promo.ItemDeadline,
+                                Value = promo.PromoCode + " - " + promo.PromoPercent + "% - " + promo.ItemName + " - " + promo.ItemSize + " - " + promo.ItemDeadline
+                            });
+                        }
+                    }
+                    if (desserts > 0)
+                    {
+                        promosList.Add(new SelectListItem
+                        {
+                            Text = "",
+                            Value = "",
+                            Disabled = true
+                        });
+                    }
+                }
+
+                if (desserts > 0)
+                {
+                    promosList.Add(new SelectListItem
+                    {
+                        Text = "Desserts:",
+                        Value = "Desserts:",
+                        Disabled = true
+                    });
+                    foreach (var promo in Model.allPromos)
+                    {
+                        if (promo.ItemType.Equals("Dessert"))
+                        {
+                            promosList.Add(new SelectListItem
+                            {
+                                Text = promo.PromoCode + " - " + promo.PromoPercent + "% - " + promo.ItemName + " - " + promo.ItemSize + " - " + promo.ItemDeadline,
+                                Value = promo.PromoCode + " - " + promo.PromoPercent + "% - " + promo.ItemName + " - " + promo.ItemSize + " - " + promo.ItemDeadline
+                            });
+                        }
+                    }
+                }
+
+                @Html.DropDownList("PromosList", promosList, "-- Select Promo --", new { @class = "form-control", @required = "required" })
+            }
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Delete Promo" class="btn btn-success" />
+            </div>
+        </div>
+    }
+
+    @using (Html.BeginForm("ManagePromoText", "Admin", FormMethod.Post))
+    {
+        <hr />
+        <div class="form-group">
+            <div id="errorMessage" class="text-success">
+                @(ViewBag.Message3)&nbsp;
+            </div>
+        </div>
+        <div class="form-horizontal">
+            <label>Write a promotion text!</label>
+            <br />
+            <div class="form-group">
+                <input type="button" value="Bold" style="width: 50px; text-align: center;" onclick="insertTags('strong')" />
+                <input type="button" value="Italic" style="width: 50px; text-align: center;" onclick="insertTags('em')" />
+                <input type="button" value="Underline" style="width: 80px; text-align: center;" onclick="insertTags('u')" />
+                <input type="button" value="Superscript" style="width: 90px; text-align: center;" onclick="insertTags('sup')" />
+                <input type="button" value="Subscript" style="width: 90px; text-align: center;" onclick="insertTags('sub')" />
+            </div>
+            <div class="form-group">
+                <input type="button" value="Link" style="width: 50px; text-align: center;" onclick="insertTags('link')" />
+                <input type="text" id="linkInput" placeholder="Please enter a link here" style="width: 300px; text-align: left;" />
+                <input type="reset" value="Reset" style="width: 50px; text-align: center;" onclick="resetErrorMessage()" />
+            </div>
+            <div class="form-group">
+                <input type="button" value="Remove Tags" style="width: 100px; text-align: center;" onclick="removeTags()" />
+            </div>
+                <textarea id="promoTextInput" name="promoTextInput" rows="10" cols="100" maxlength="1000" style="resize: none;">@ViewBag.PromoInputText</textarea>
+                <br /><br />
+                <div class="form-group">
+                    <input type="submit" value="Upload Promo Text" class="btn btn-success" />
+                </div>
+            </div>
+            }
+</center>
+
+<div style="text-align:center;">
+    <input type="button" value="Admin Panel" class="btn btn-default" onclick="location.href='@Url.Action("AdminPanel", "Admin")';" />
+</div>

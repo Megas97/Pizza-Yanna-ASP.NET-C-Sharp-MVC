@@ -1,0 +1,157 @@
+DROP TABLE IF EXISTS [dbo].[PromotionsText];
+DROP TABLE IF EXISTS [dbo].[Promos];
+DROP TABLE IF EXISTS [dbo].[OrderHistory];
+DROP TABLE IF EXISTS [dbo].[Orders];
+DROP TABLE IF EXISTS [dbo].[UsersRoles];
+DROP TABLE IF EXISTS [dbo].[Users];
+DROP TABLE IF EXISTS [dbo].[Roles];
+DROP TABLE IF EXISTS [dbo].[Desserts];
+DROP TABLE IF EXISTS [dbo].[Drinks];
+DROP TABLE IF EXISTS [dbo].[Pizzas];
+DROP TABLE IF EXISTS [dbo].[RecipesIngredients];
+DROP TABLE IF EXISTS [dbo].[Recipes];
+DROP TABLE IF EXISTS [dbo].[Ingredients];
+
+CREATE TABLE [dbo].[Ingredients] (
+    [IngredientID]    INT           IDENTITY (1, 1) NOT NULL,
+    [IngredientName]  NVARCHAR (50) NOT NULL,
+    [IngredientPrice] FLOAT (53)    NOT NULL,
+    PRIMARY KEY CLUSTERED ([IngredientID] ASC)
+);
+
+CREATE TABLE [dbo].[Recipes] (
+    [RecipeID]   INT            IDENTITY (1, 1) NOT NULL,
+    [RecipeName] NVARCHAR (250) NOT NULL,
+    PRIMARY KEY CLUSTERED ([RecipeID] ASC)
+);
+
+CREATE TABLE [dbo].[RecipesIngredients] (
+    [RecipeIngredientID] INT IDENTITY (1, 1) NOT NULL,
+    [RecipeID]           INT NOT NULL,
+    [IngredientID]       INT NOT NULL,
+    PRIMARY KEY CLUSTERED ([RecipeIngredientID] ASC),
+    CONSTRAINT [FK_RecipesIngredients_Recipes] FOREIGN KEY ([RecipeID]) REFERENCES [dbo].[Recipes] ([RecipeID]),
+    CONSTRAINT [FK_RecipesIngredients_Ingredients] FOREIGN KEY ([IngredientID]) REFERENCES [dbo].[Ingredients] ([IngredientID])
+);
+
+CREATE TABLE [dbo].[Pizzas] (
+    [PizzaID]          INT            IDENTITY (1, 1) NOT NULL,
+    [PizzaName]        NVARCHAR (250) NOT NULL,
+    [RecipeID]         INT            NOT NULL,
+    [PizzaPrice]       FLOAT (53)     NOT NULL,
+    [PizzaSize]        NVARCHAR (50)  NOT NULL,
+    [PizzaPicturePath] NVARCHAR (250) NOT NULL,
+    PRIMARY KEY CLUSTERED ([PizzaID] ASC),
+    CONSTRAINT [FK_Pizzas_Recipes] FOREIGN KEY ([RecipeID]) REFERENCES [dbo].[Recipes] ([RecipeID])
+);
+
+CREATE TABLE [dbo].[Drinks] (
+    [DrinkID]          INT            IDENTITY (1, 1) NOT NULL,
+    [DrinkName]        NVARCHAR (250) NOT NULL,
+    [DrinkPrice]       FLOAT (53)     NOT NULL,
+    [DrinkSize]        NVARCHAR (50)  NOT NULL,
+    [DrinkPicturePath] NVARCHAR (250) NOT NULL,
+    PRIMARY KEY CLUSTERED ([DrinkID] ASC)
+);
+
+CREATE TABLE [dbo].[Desserts] (
+    [DessertID]          INT            IDENTITY (1, 1) NOT NULL,
+    [DessertName]        NVARCHAR (250) NOT NULL,
+    [DessertPrice]       FLOAT (53)     NOT NULL,
+    [DessertSize]        NVARCHAR (50)  NOT NULL,
+    [DessertPicturePath] NVARCHAR (250) NOT NULL,
+    PRIMARY KEY CLUSTERED ([DessertID] ASC)
+);
+
+CREATE TABLE [dbo].[Users] (
+    [UserID]            INT              IDENTITY (1, 1) NOT NULL,
+    [FirstName]         NVARCHAR (50)    NOT NULL,
+    [LastName]          NVARCHAR (50)    NOT NULL,
+    [Address]           NVARCHAR (250)   NOT NULL,
+    [EmailID]           VARCHAR (250)    NOT NULL,
+    [Password]          NVARCHAR (MAX)   NOT NULL,
+    [IsEmailVerified]   BIT              NOT NULL,
+    [ActivationCode]    UNIQUEIDENTIFIER NOT NULL,
+    [ResetPasswordCode] NVARCHAR (100)   NULL,
+    [CanUsePromoCodes]  BIT              NULL,
+    [CurrentPromoCode]  VARCHAR (250)    NULL,
+    PRIMARY KEY CLUSTERED ([UserID] ASC)
+);
+
+CREATE TABLE [dbo].[Roles] (
+    [RoleID]   INT           IDENTITY (1, 1) NOT NULL,
+    [RoleName] NVARCHAR (50) NOT NULL,
+    PRIMARY KEY CLUSTERED ([RoleID] ASC)
+);
+
+CREATE TABLE [dbo].[UsersRoles] (
+    [UsersRolesID] INT IDENTITY (1, 1) NOT NULL,
+    [UserID]       INT NOT NULL,
+    [RoleID]       INT NOT NULL,
+    PRIMARY KEY CLUSTERED ([UsersRolesID] ASC),
+    CONSTRAINT [FK_UsersRoles_Users] FOREIGN KEY ([UserID]) REFERENCES [dbo].[Users] ([UserID]),
+    CONSTRAINT [FK_UsersRoles_Roles] FOREIGN KEY ([RoleID]) REFERENCES [dbo].[Roles] ([RoleID])
+);
+
+CREATE TABLE [dbo].[Orders] (
+    [OrderID]       INT        IDENTITY (1, 1) NOT NULL,
+    [PizzaID]       INT        NULL,
+    [PizzaAmount]   INT        NULL,
+    [UserID]        INT        NOT NULL,
+    [DrinkID]       INT        NULL,
+    [DrinkAmount]   INT        NULL,
+    [DessertID]     INT        NULL,
+    [DessertAmount] INT        NULL,
+    [PromoPercent]  FLOAT (53) NULL,
+    PRIMARY KEY CLUSTERED ([OrderID] ASC),
+    CONSTRAINT [FK_Orders_Users] FOREIGN KEY ([UserID]) REFERENCES [dbo].[Users] ([UserID]),
+    CONSTRAINT [FK_Orders_Drinks] FOREIGN KEY ([DrinkID]) REFERENCES [dbo].[Drinks] ([DrinkID]),
+    CONSTRAINT [FK_Orders_Pizzas] FOREIGN KEY ([PizzaID]) REFERENCES [dbo].[Pizzas] ([PizzaID]),
+    CONSTRAINT [FK_Orders_Desserts] FOREIGN KEY ([DessertID]) REFERENCES [dbo].[Desserts] ([DessertID])
+);
+
+CREATE TABLE [dbo].[OrderHistory] (
+    [OrderHistoryID]     INT            IDENTITY (1, 1) NOT NULL,
+    [UserID]             INT            NOT NULL,
+    [PizzaID]            INT            NULL,
+    [PizzaName]          NVARCHAR (250) NULL,
+    [PizzaSize]          NVARCHAR (50)  NULL,
+    [PizzaPrice]         FLOAT (53)     NULL,
+    [PizzaAmount]        INT            NULL,
+    [PizzaPicturePath]   NVARCHAR (250) NULL,
+    [DrinkID]            INT            NULL,
+    [DrinkName]          NVARCHAR (250) NULL,
+    [DrinkSize]          NVARCHAR (50)  NULL,
+    [DrinkPrice]         FLOAT (53)     NULL,
+    [DrinkAmount]        INT            NULL,
+    [DrinkPicturePath]   NVARCHAR (250) NULL,
+    [DessertID]          INT            NULL,
+    [DessertName]        NVARCHAR (250) NULL,
+    [DessertSize]        NVARCHAR (50)  NULL,
+    [DessertPrice]       FLOAT (53)     NULL,
+    [DessertAmount]      INT            NULL,
+    [DessertPicturePath] NVARCHAR (250) NULL,
+    [Timestamp]          VARCHAR (250)  NOT NULL,
+    PRIMARY KEY CLUSTERED ([OrderHistoryID] ASC),
+    CONSTRAINT [FK_OrderHistory_Users] FOREIGN KEY ([UserID]) REFERENCES [dbo].[Users] ([UserID])
+);
+
+CREATE TABLE [dbo].[Promos] (
+    [PromoID]      INT            IDENTITY (1, 1) NOT NULL,
+    [PromoCode]    VARCHAR (250)  NOT NULL,
+    [PromoPercent] FLOAT (53)     NOT NULL,
+    [ItemName]     NVARCHAR (250) NOT NULL,
+    [ItemSize]     NVARCHAR (250) NOT NULL,
+    [ItemType]     NVARCHAR (250) NOT NULL,
+    [ItemDeadline] NVARCHAR (250) NOT NULL,
+    PRIMARY KEY CLUSTERED ([PromoID] ASC)
+);
+
+CREATE TABLE [dbo].[PromotionsText] (
+    [PromoTextID] INT            IDENTITY (1, 1) NOT NULL,
+    [PromoText]   NVARCHAR (MAX) NULL,
+    PRIMARY KEY CLUSTERED ([PromoTextID] ASC)
+);
+
+INSERT INTO [dbo].[Roles] (RoleName) VALUES ('Admin');
+INSERT INTO [dbo].[Roles] (RoleName) VALUES ('User');

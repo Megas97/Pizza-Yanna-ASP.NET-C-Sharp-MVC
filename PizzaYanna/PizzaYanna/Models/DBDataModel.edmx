@@ -1,0 +1,856 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Desserts">
+          <Key>
+            <PropertyRef Name="DessertID" />
+          </Key>
+          <Property Name="DessertID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DessertName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="DessertPrice" Type="float" Nullable="false" />
+          <Property Name="DessertSize" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DessertPicturePath" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Drinks">
+          <Key>
+            <PropertyRef Name="DrinkID" />
+          </Key>
+          <Property Name="DrinkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DrinkName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="DrinkPrice" Type="float" Nullable="false" />
+          <Property Name="DrinkSize" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DrinkPicturePath" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ingredients">
+          <Key>
+            <PropertyRef Name="IngredientID" />
+          </Key>
+          <Property Name="IngredientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IngredientName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IngredientPrice" Type="float" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OrderHistory">
+          <Key>
+            <PropertyRef Name="OrderHistoryID" />
+          </Key>
+          <Property Name="OrderHistoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="PizzaID" Type="int" />
+          <Property Name="PizzaName" Type="nvarchar" MaxLength="250" />
+          <Property Name="PizzaSize" Type="nvarchar" MaxLength="50" />
+          <Property Name="PizzaPrice" Type="float" />
+          <Property Name="PizzaAmount" Type="int" />
+          <Property Name="PizzaPicturePath" Type="nvarchar" MaxLength="250" />
+          <Property Name="DrinkID" Type="int" />
+          <Property Name="DrinkName" Type="nvarchar" MaxLength="250" />
+          <Property Name="DrinkSize" Type="nvarchar" MaxLength="50" />
+          <Property Name="DrinkPrice" Type="float" />
+          <Property Name="DrinkAmount" Type="int" />
+          <Property Name="DrinkPicturePath" Type="nvarchar" MaxLength="250" />
+          <Property Name="DessertID" Type="int" />
+          <Property Name="DessertName" Type="nvarchar" MaxLength="250" />
+          <Property Name="DessertSize" Type="nvarchar" MaxLength="50" />
+          <Property Name="DessertPrice" Type="float" />
+          <Property Name="DessertAmount" Type="int" />
+          <Property Name="DessertPicturePath" Type="nvarchar" MaxLength="250" />
+          <Property Name="Timestamp" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PizzaID" Type="int" />
+          <Property Name="PizzaAmount" Type="int" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="DrinkID" Type="int" />
+          <Property Name="DrinkAmount" Type="int" />
+          <Property Name="DessertID" Type="int" />
+          <Property Name="DessertAmount" Type="int" />
+          <Property Name="PromoPercent" Type="float" />
+        </EntityType>
+        <EntityType Name="Pizzas">
+          <Key>
+            <PropertyRef Name="PizzaID" />
+          </Key>
+          <Property Name="PizzaID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PizzaName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="RecipeID" Type="int" Nullable="false" />
+          <Property Name="PizzaPrice" Type="float" Nullable="false" />
+          <Property Name="PizzaSize" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PizzaPicturePath" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Promos">
+          <Key>
+            <PropertyRef Name="PromoID" />
+          </Key>
+          <Property Name="PromoID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PromoCode" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="PromoPercent" Type="float" Nullable="false" />
+          <Property Name="ItemName" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="ItemSize" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="ItemType" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="ItemDeadline" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PromotionsText">
+          <Key>
+            <PropertyRef Name="PromoTextID" />
+          </Key>
+          <Property Name="PromoTextID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PromoText" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Recipes">
+          <Key>
+            <PropertyRef Name="RecipeID" />
+          </Key>
+          <Property Name="RecipeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecipeName" Type="nvarchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RecipesIngredients">
+          <Key>
+            <PropertyRef Name="RecipeIngredientID" />
+          </Key>
+          <Property Name="RecipeIngredientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RecipeID" Type="int" Nullable="false" />
+          <Property Name="IngredientID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleName" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="EmailID" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsEmailVerified" Type="bit" Nullable="false" />
+          <Property Name="ActivationCode" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ResetPasswordCode" Type="nvarchar" MaxLength="100" />
+          <Property Name="CanUsePromoCodes" Type="bit" />
+          <Property Name="CurrentPromoCode" Type="varchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="UsersRoles">
+          <Key>
+            <PropertyRef Name="UsersRolesID" />
+          </Key>
+          <Property Name="UsersRolesID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_OrderHistory_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="OrderHistory" Type="Self.OrderHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="OrderHistory">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Desserts">
+          <End Role="Desserts" Type="Self.Desserts" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Desserts">
+              <PropertyRef Name="DessertID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="DessertID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Drinks">
+          <End Role="Drinks" Type="Self.Drinks" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drinks">
+              <PropertyRef Name="DrinkID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="DrinkID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Pizzas">
+          <End Role="Pizzas" Type="Self.Pizzas" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pizzas">
+              <PropertyRef Name="PizzaID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="PizzaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Orders">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pizzas_Recipes">
+          <End Role="Recipes" Type="Self.Recipes" Multiplicity="1" />
+          <End Role="Pizzas" Type="Self.Pizzas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipes">
+              <PropertyRef Name="RecipeID" />
+            </Principal>
+            <Dependent Role="Pizzas">
+              <PropertyRef Name="RecipeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecipesIngredients_Ingredients">
+          <End Role="Ingredients" Type="Self.Ingredients" Multiplicity="1" />
+          <End Role="RecipesIngredients" Type="Self.RecipesIngredients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ingredients">
+              <PropertyRef Name="IngredientID" />
+            </Principal>
+            <Dependent Role="RecipesIngredients">
+              <PropertyRef Name="IngredientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecipesIngredients_Recipes">
+          <End Role="Recipes" Type="Self.Recipes" Multiplicity="1" />
+          <End Role="RecipesIngredients" Type="Self.RecipesIngredients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipes">
+              <PropertyRef Name="RecipeID" />
+            </Principal>
+            <Dependent Role="RecipesIngredients">
+              <PropertyRef Name="RecipeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersRoles_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="UsersRoles" Type="Self.UsersRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="UsersRoles">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersRoles_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="1" />
+          <End Role="UsersRoles" Type="Self.UsersRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UsersRoles">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseModelStoreContainer">
+          <EntitySet Name="Desserts" EntityType="Self.Desserts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Drinks" EntityType="Self.Drinks" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ingredients" EntityType="Self.Ingredients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrderHistory" EntityType="Self.OrderHistory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pizzas" EntityType="Self.Pizzas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Promos" EntityType="Self.Promos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PromotionsText" EntityType="Self.PromotionsText" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Recipes" EntityType="Self.Recipes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RecipesIngredients" EntityType="Self.RecipesIngredients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersRoles" EntityType="Self.UsersRoles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_OrderHistory_Users" Association="Self.FK_OrderHistory_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="OrderHistory" EntitySet="OrderHistory" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Desserts" Association="Self.FK_Orders_Desserts">
+            <End Role="Desserts" EntitySet="Desserts" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Drinks" Association="Self.FK_Orders_Drinks">
+            <End Role="Drinks" EntitySet="Drinks" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Pizzas" Association="Self.FK_Orders_Pizzas">
+            <End Role="Pizzas" EntitySet="Pizzas" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Users" Association="Self.FK_Orders_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Orders" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pizzas_Recipes" Association="Self.FK_Pizzas_Recipes">
+            <End Role="Recipes" EntitySet="Recipes" />
+            <End Role="Pizzas" EntitySet="Pizzas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecipesIngredients_Ingredients" Association="Self.FK_RecipesIngredients_Ingredients">
+            <End Role="Ingredients" EntitySet="Ingredients" />
+            <End Role="RecipesIngredients" EntitySet="RecipesIngredients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecipesIngredients_Recipes" Association="Self.FK_RecipesIngredients_Recipes">
+            <End Role="Recipes" EntitySet="Recipes" />
+            <End Role="RecipesIngredients" EntitySet="RecipesIngredients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersRoles_Roles" Association="Self.FK_UsersRoles_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="UsersRoles" EntitySet="UsersRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersRoles_Users" Association="Self.FK_UsersRoles_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="UsersRoles" EntitySet="UsersRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Desserts" EntityType="DatabaseModel.Dessert" />
+          <EntitySet Name="Drinks" EntityType="DatabaseModel.Drink" />
+          <EntitySet Name="Ingredients" EntityType="DatabaseModel.Ingredient" />
+          <EntitySet Name="OrderHistories" EntityType="DatabaseModel.OrderHistory" />
+          <EntitySet Name="Orders" EntityType="DatabaseModel.Order" />
+          <EntitySet Name="Pizzas" EntityType="DatabaseModel.Pizza" />
+          <EntitySet Name="Promos" EntityType="DatabaseModel.Promo" />
+          <EntitySet Name="Recipes" EntityType="DatabaseModel.Recipe" />
+          <EntitySet Name="RecipesIngredients" EntityType="DatabaseModel.RecipesIngredient" />
+          <EntitySet Name="Roles" EntityType="DatabaseModel.Role" />
+          <EntitySet Name="Users" EntityType="DatabaseModel.User" />
+          <EntitySet Name="UsersRoles" EntityType="DatabaseModel.UsersRole" />
+          <AssociationSet Name="FK_Orders_Desserts" Association="DatabaseModel.FK_Orders_Desserts">
+            <End Role="Dessert" EntitySet="Desserts" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Drinks" Association="DatabaseModel.FK_Orders_Drinks">
+            <End Role="Drink" EntitySet="Drinks" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecipesIngredients_Ingredients" Association="DatabaseModel.FK_RecipesIngredients_Ingredients">
+            <End Role="Ingredient" EntitySet="Ingredients" />
+            <End Role="RecipesIngredient" EntitySet="RecipesIngredients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderHistory_Users" Association="DatabaseModel.FK_OrderHistory_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="OrderHistory" EntitySet="OrderHistories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Pizzas" Association="DatabaseModel.FK_Orders_Pizzas">
+            <End Role="Pizza" EntitySet="Pizzas" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Orders_Users" Association="DatabaseModel.FK_Orders_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Pizzas_Recipes" Association="DatabaseModel.FK_Pizzas_Recipes">
+            <End Role="Recipe" EntitySet="Recipes" />
+            <End Role="Pizza" EntitySet="Pizzas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RecipesIngredients_Recipes" Association="DatabaseModel.FK_RecipesIngredients_Recipes">
+            <End Role="Recipe" EntitySet="Recipes" />
+            <End Role="RecipesIngredient" EntitySet="RecipesIngredients" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersRoles_Roles" Association="DatabaseModel.FK_UsersRoles_Roles">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="UsersRole" EntitySet="UsersRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersRoles_Users" Association="DatabaseModel.FK_UsersRoles_Users">
+            <End Role="User" EntitySet="Users" />
+            <End Role="UsersRole" EntitySet="UsersRoles" />
+          </AssociationSet>
+          <EntitySet Name="PromotionsTexts" EntityType="DatabaseModel.PromotionsText" />
+        </EntityContainer>
+        <EntityType Name="Dessert">
+          <Key>
+            <PropertyRef Name="DessertID" />
+          </Key>
+          <Property Name="DessertID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DessertName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DessertPrice" Type="Double" Nullable="false" />
+          <Property Name="DessertSize" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DessertPicturePath" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="DatabaseModel.FK_Orders_Desserts" FromRole="Dessert" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Drink">
+          <Key>
+            <PropertyRef Name="DrinkID" />
+          </Key>
+          <Property Name="DrinkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DrinkName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DrinkPrice" Type="Double" Nullable="false" />
+          <Property Name="DrinkSize" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DrinkPicturePath" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="DatabaseModel.FK_Orders_Drinks" FromRole="Drink" ToRole="Order" />
+        </EntityType>
+        <EntityType Name="Ingredient">
+          <Key>
+            <PropertyRef Name="IngredientID" />
+          </Key>
+          <Property Name="IngredientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IngredientName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IngredientPrice" Type="Double" Nullable="false" />
+          <NavigationProperty Name="RecipesIngredients" Relationship="DatabaseModel.FK_RecipesIngredients_Ingredients" FromRole="Ingredient" ToRole="RecipesIngredient" />
+        </EntityType>
+        <EntityType Name="OrderHistory">
+          <Key>
+            <PropertyRef Name="OrderHistoryID" />
+          </Key>
+          <Property Name="OrderHistoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="PizzaID" Type="Int32" />
+          <Property Name="PizzaName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PizzaSize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PizzaPrice" Type="Double" />
+          <Property Name="PizzaAmount" Type="Int32" />
+          <Property Name="PizzaPicturePath" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DrinkID" Type="Int32" />
+          <Property Name="DrinkName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DrinkSize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DrinkPrice" Type="Double" />
+          <Property Name="DrinkAmount" Type="Int32" />
+          <Property Name="DrinkPicturePath" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DessertID" Type="Int32" />
+          <Property Name="DessertName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="DessertSize" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DessertPrice" Type="Double" />
+          <Property Name="DessertAmount" Type="Int32" />
+          <Property Name="DessertPicturePath" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Timestamp" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="User" Relationship="DatabaseModel.FK_OrderHistory_Users" FromRole="OrderHistory" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Order">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PizzaID" Type="Int32" />
+          <Property Name="PizzaAmount" Type="Int32" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="DrinkID" Type="Int32" />
+          <Property Name="DrinkAmount" Type="Int32" />
+          <Property Name="DessertID" Type="Int32" />
+          <Property Name="DessertAmount" Type="Int32" />
+          <Property Name="PromoPercent" Type="Double" />
+          <NavigationProperty Name="Dessert" Relationship="DatabaseModel.FK_Orders_Desserts" FromRole="Order" ToRole="Dessert" />
+          <NavigationProperty Name="Drink" Relationship="DatabaseModel.FK_Orders_Drinks" FromRole="Order" ToRole="Drink" />
+          <NavigationProperty Name="Pizza" Relationship="DatabaseModel.FK_Orders_Pizzas" FromRole="Order" ToRole="Pizza" />
+          <NavigationProperty Name="User" Relationship="DatabaseModel.FK_Orders_Users" FromRole="Order" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Pizza">
+          <Key>
+            <PropertyRef Name="PizzaID" />
+          </Key>
+          <Property Name="PizzaID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PizzaName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="RecipeID" Type="Int32" Nullable="false" />
+          <Property Name="PizzaPrice" Type="Double" Nullable="false" />
+          <Property Name="PizzaSize" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PizzaPicturePath" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Orders" Relationship="DatabaseModel.FK_Orders_Pizzas" FromRole="Pizza" ToRole="Order" />
+          <NavigationProperty Name="Recipe" Relationship="DatabaseModel.FK_Pizzas_Recipes" FromRole="Pizza" ToRole="Recipe" />
+        </EntityType>
+        <EntityType Name="Promo">
+          <Key>
+            <PropertyRef Name="PromoID" />
+          </Key>
+          <Property Name="PromoID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PromoCode" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="PromoPercent" Type="Double" Nullable="false" />
+          <Property Name="ItemName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ItemSize" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ItemType" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ItemDeadline" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Recipe">
+          <Key>
+            <PropertyRef Name="RecipeID" />
+          </Key>
+          <Property Name="RecipeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecipeName" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Pizzas" Relationship="DatabaseModel.FK_Pizzas_Recipes" FromRole="Recipe" ToRole="Pizza" />
+          <NavigationProperty Name="RecipesIngredients" Relationship="DatabaseModel.FK_RecipesIngredients_Recipes" FromRole="Recipe" ToRole="RecipesIngredient" />
+        </EntityType>
+        <EntityType Name="RecipesIngredient">
+          <Key>
+            <PropertyRef Name="RecipeIngredientID" />
+          </Key>
+          <Property Name="RecipeIngredientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RecipeID" Type="Int32" Nullable="false" />
+          <Property Name="IngredientID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Ingredient" Relationship="DatabaseModel.FK_RecipesIngredients_Ingredients" FromRole="RecipesIngredient" ToRole="Ingredient" />
+          <NavigationProperty Name="Recipe" Relationship="DatabaseModel.FK_RecipesIngredients_Recipes" FromRole="RecipesIngredient" ToRole="Recipe" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UsersRoles" Relationship="DatabaseModel.FK_UsersRoles_Roles" FromRole="Role" ToRole="UsersRole" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="EmailID" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsEmailVerified" Type="Boolean" Nullable="false" />
+          <Property Name="ActivationCode" Type="Guid" Nullable="false" />
+          <Property Name="ResetPasswordCode" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CanUsePromoCodes" Type="Boolean" />
+          <Property Name="CurrentPromoCode" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="OrderHistories" Relationship="DatabaseModel.FK_OrderHistory_Users" FromRole="User" ToRole="OrderHistory" />
+          <NavigationProperty Name="Orders" Relationship="DatabaseModel.FK_Orders_Users" FromRole="User" ToRole="Order" />
+          <NavigationProperty Name="UsersRoles" Relationship="DatabaseModel.FK_UsersRoles_Users" FromRole="User" ToRole="UsersRole" />
+        </EntityType>
+        <EntityType Name="UsersRole">
+          <Key>
+            <PropertyRef Name="UsersRolesID" />
+          </Key>
+          <Property Name="UsersRolesID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="DatabaseModel.FK_UsersRoles_Roles" FromRole="UsersRole" ToRole="Role" />
+          <NavigationProperty Name="User" Relationship="DatabaseModel.FK_UsersRoles_Users" FromRole="UsersRole" ToRole="User" />
+        </EntityType>
+        <Association Name="FK_Orders_Desserts">
+          <End Type="DatabaseModel.Dessert" Role="Dessert" Multiplicity="0..1" />
+          <End Type="DatabaseModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Dessert">
+              <PropertyRef Name="DessertID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="DessertID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Drinks">
+          <End Type="DatabaseModel.Drink" Role="Drink" Multiplicity="0..1" />
+          <End Type="DatabaseModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Drink">
+              <PropertyRef Name="DrinkID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="DrinkID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecipesIngredients_Ingredients">
+          <End Type="DatabaseModel.Ingredient" Role="Ingredient" Multiplicity="1" />
+          <End Type="DatabaseModel.RecipesIngredient" Role="RecipesIngredient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ingredient">
+              <PropertyRef Name="IngredientID" />
+            </Principal>
+            <Dependent Role="RecipesIngredient">
+              <PropertyRef Name="IngredientID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrderHistory_Users">
+          <End Type="DatabaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="DatabaseModel.OrderHistory" Role="OrderHistory" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="OrderHistory">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Pizzas">
+          <End Type="DatabaseModel.Pizza" Role="Pizza" Multiplicity="0..1" />
+          <End Type="DatabaseModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pizza">
+              <PropertyRef Name="PizzaID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="PizzaID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Orders_Users">
+          <End Type="DatabaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="DatabaseModel.Order" Role="Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Pizzas_Recipes">
+          <End Type="DatabaseModel.Recipe" Role="Recipe" Multiplicity="1" />
+          <End Type="DatabaseModel.Pizza" Role="Pizza" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe">
+              <PropertyRef Name="RecipeID" />
+            </Principal>
+            <Dependent Role="Pizza">
+              <PropertyRef Name="RecipeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RecipesIngredients_Recipes">
+          <End Type="DatabaseModel.Recipe" Role="Recipe" Multiplicity="1" />
+          <End Type="DatabaseModel.RecipesIngredient" Role="RecipesIngredient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Recipe">
+              <PropertyRef Name="RecipeID" />
+            </Principal>
+            <Dependent Role="RecipesIngredient">
+              <PropertyRef Name="RecipeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersRoles_Roles">
+          <End Type="DatabaseModel.Role" Role="Role" Multiplicity="1" />
+          <End Type="DatabaseModel.UsersRole" Role="UsersRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="UsersRole">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersRoles_Users">
+          <End Type="DatabaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="DatabaseModel.UsersRole" Role="UsersRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="UserID" />
+            </Principal>
+            <Dependent Role="UsersRole">
+              <PropertyRef Name="UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PromotionsText">
+          <Key>
+            <PropertyRef Name="PromoTextID" />
+          </Key>
+          <Property Name="PromoTextID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PromoText" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DBEntities">
+          <EntitySetMapping Name="Desserts">
+            <EntityTypeMapping TypeName="DatabaseModel.Dessert">
+              <MappingFragment StoreEntitySet="Desserts">
+                <ScalarProperty Name="DessertPicturePath" ColumnName="DessertPicturePath" />
+                <ScalarProperty Name="DessertSize" ColumnName="DessertSize" />
+                <ScalarProperty Name="DessertPrice" ColumnName="DessertPrice" />
+                <ScalarProperty Name="DessertName" ColumnName="DessertName" />
+                <ScalarProperty Name="DessertID" ColumnName="DessertID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Drinks">
+            <EntityTypeMapping TypeName="DatabaseModel.Drink">
+              <MappingFragment StoreEntitySet="Drinks">
+                <ScalarProperty Name="DrinkPicturePath" ColumnName="DrinkPicturePath" />
+                <ScalarProperty Name="DrinkSize" ColumnName="DrinkSize" />
+                <ScalarProperty Name="DrinkPrice" ColumnName="DrinkPrice" />
+                <ScalarProperty Name="DrinkName" ColumnName="DrinkName" />
+                <ScalarProperty Name="DrinkID" ColumnName="DrinkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ingredients">
+            <EntityTypeMapping TypeName="DatabaseModel.Ingredient">
+              <MappingFragment StoreEntitySet="Ingredients">
+                <ScalarProperty Name="IngredientPrice" ColumnName="IngredientPrice" />
+                <ScalarProperty Name="IngredientName" ColumnName="IngredientName" />
+                <ScalarProperty Name="IngredientID" ColumnName="IngredientID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrderHistories">
+            <EntityTypeMapping TypeName="DatabaseModel.OrderHistory">
+              <MappingFragment StoreEntitySet="OrderHistory">
+                <ScalarProperty Name="Timestamp" ColumnName="Timestamp" />
+                <ScalarProperty Name="DessertPicturePath" ColumnName="DessertPicturePath" />
+                <ScalarProperty Name="DessertAmount" ColumnName="DessertAmount" />
+                <ScalarProperty Name="DessertPrice" ColumnName="DessertPrice" />
+                <ScalarProperty Name="DessertSize" ColumnName="DessertSize" />
+                <ScalarProperty Name="DessertName" ColumnName="DessertName" />
+                <ScalarProperty Name="DessertID" ColumnName="DessertID" />
+                <ScalarProperty Name="DrinkPicturePath" ColumnName="DrinkPicturePath" />
+                <ScalarProperty Name="DrinkAmount" ColumnName="DrinkAmount" />
+                <ScalarProperty Name="DrinkPrice" ColumnName="DrinkPrice" />
+                <ScalarProperty Name="DrinkSize" ColumnName="DrinkSize" />
+                <ScalarProperty Name="DrinkName" ColumnName="DrinkName" />
+                <ScalarProperty Name="DrinkID" ColumnName="DrinkID" />
+                <ScalarProperty Name="PizzaPicturePath" ColumnName="PizzaPicturePath" />
+                <ScalarProperty Name="PizzaAmount" ColumnName="PizzaAmount" />
+                <ScalarProperty Name="PizzaPrice" ColumnName="PizzaPrice" />
+                <ScalarProperty Name="PizzaSize" ColumnName="PizzaSize" />
+                <ScalarProperty Name="PizzaName" ColumnName="PizzaName" />
+                <ScalarProperty Name="PizzaID" ColumnName="PizzaID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="OrderHistoryID" ColumnName="OrderHistoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="DatabaseModel.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="PromoPercent" ColumnName="PromoPercent" />
+                <ScalarProperty Name="DessertAmount" ColumnName="DessertAmount" />
+                <ScalarProperty Name="DessertID" ColumnName="DessertID" />
+                <ScalarProperty Name="DrinkAmount" ColumnName="DrinkAmount" />
+                <ScalarProperty Name="DrinkID" ColumnName="DrinkID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="PizzaAmount" ColumnName="PizzaAmount" />
+                <ScalarProperty Name="PizzaID" ColumnName="PizzaID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pizzas">
+            <EntityTypeMapping TypeName="DatabaseModel.Pizza">
+              <MappingFragment StoreEntitySet="Pizzas">
+                <ScalarProperty Name="PizzaPicturePath" ColumnName="PizzaPicturePath" />
+                <ScalarProperty Name="PizzaSize" ColumnName="PizzaSize" />
+                <ScalarProperty Name="PizzaPrice" ColumnName="PizzaPrice" />
+                <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
+                <ScalarProperty Name="PizzaName" ColumnName="PizzaName" />
+                <ScalarProperty Name="PizzaID" ColumnName="PizzaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Promos">
+            <EntityTypeMapping TypeName="DatabaseModel.Promo">
+              <MappingFragment StoreEntitySet="Promos">
+                <ScalarProperty Name="ItemDeadline" ColumnName="ItemDeadline" />
+                <ScalarProperty Name="ItemType" ColumnName="ItemType" />
+                <ScalarProperty Name="ItemSize" ColumnName="ItemSize" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="PromoPercent" ColumnName="PromoPercent" />
+                <ScalarProperty Name="PromoCode" ColumnName="PromoCode" />
+                <ScalarProperty Name="PromoID" ColumnName="PromoID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Recipes">
+            <EntityTypeMapping TypeName="DatabaseModel.Recipe">
+              <MappingFragment StoreEntitySet="Recipes">
+                <ScalarProperty Name="RecipeName" ColumnName="RecipeName" />
+                <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RecipesIngredients">
+            <EntityTypeMapping TypeName="DatabaseModel.RecipesIngredient">
+              <MappingFragment StoreEntitySet="RecipesIngredients">
+                <ScalarProperty Name="IngredientID" ColumnName="IngredientID" />
+                <ScalarProperty Name="RecipeID" ColumnName="RecipeID" />
+                <ScalarProperty Name="RecipeIngredientID" ColumnName="RecipeIngredientID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="DatabaseModel.Role">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="RoleName" ColumnName="RoleName" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DatabaseModel.User">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="CurrentPromoCode" ColumnName="CurrentPromoCode" />
+                <ScalarProperty Name="CanUsePromoCodes" ColumnName="CanUsePromoCodes" />
+                <ScalarProperty Name="ResetPasswordCode" ColumnName="ResetPasswordCode" />
+                <ScalarProperty Name="ActivationCode" ColumnName="ActivationCode" />
+                <ScalarProperty Name="IsEmailVerified" ColumnName="IsEmailVerified" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsersRoles">
+            <EntityTypeMapping TypeName="DatabaseModel.UsersRole">
+              <MappingFragment StoreEntitySet="UsersRoles">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="UsersRolesID" ColumnName="UsersRolesID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PromotionsTexts">
+            <EntityTypeMapping TypeName="DatabaseModel.PromotionsText">
+              <MappingFragment StoreEntitySet="PromotionsText">
+                <ScalarProperty Name="PromoText" ColumnName="PromoText" />
+                <ScalarProperty Name="PromoTextID" ColumnName="PromoTextID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
